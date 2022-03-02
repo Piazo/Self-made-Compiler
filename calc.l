@@ -22,7 +22,7 @@
 	}
 
 [0-9]+[Ee]("+"|"-")?[0-9]+ {
-	yyval.nb = (int)strtold(yytext, NULL);
+	yylval.nb = (int)strtold(yytext, NULL);
 	return tNB;
 }
 "="	{ return tEGAL; }
@@ -36,7 +36,6 @@
 "}" { return tCB; }
 ";"	{ return tEOI; }
 "," { return tVIRG; }
-";" { return tSCOL;}
 "==" { return tCONDEGAL; }
 "!=" { return tDIFF; }
 "<=" { return tINFEG; }

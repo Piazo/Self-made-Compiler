@@ -8,18 +8,18 @@ void yyerror(char *s);
 %token tFL tEGAL tPO tIF tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tNOT tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
 %token <nb> tNB tEXP
 %token <var> tID
-%type <nb> Expr DivMul Terme
+%type <nb> Expr 
 %start Clio4
 %%
 
 Clio4 : tMAIN tOB Section tCB ;
 
-Body : tOB Section TCB;
+Body : tOB Section tCB;
 
 Section : Expr tEOI Section
 		| Expr tEOI;
 
-Expr : Declaration 
+Expr : Declarations
 	| DeclaAffec 
 	| Affectation  
 	| Operation 
@@ -36,7 +36,7 @@ Parametres : Declaration tVIRG Parametres
 
 If : tIF tPO Conditions tPF Body;
 
-While : tWHILE TPO Conditions tPF Body;
+While : tWHILE tPO Conditions tPF Body;
 
 Orand : tOR | tAND;
 
@@ -87,7 +87,7 @@ Mul : TermeOpe tMUL TermeOpe;
 Div : TermeOpe tDIV TermeOpe;
 
 TermeOpe : tPO Operation tPF 
-		| Ope 
+		| Operation 
 		| tID 
 		| TypeNb;
 
