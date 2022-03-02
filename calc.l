@@ -13,6 +13,8 @@
 "const " { return tCONST; }
 "int " { return tINT; }
 "printf" {return tPRINT; }
+"if" { return tIF; }
+"while" { return tWHILE; }
 
 [0-9]+	{
 	  yylval.nb = atoi(yytext);
@@ -33,6 +35,16 @@
 "{" { return tOB; }
 "}" { return tCB; }
 ";"	{ return tEOI; }
+"," { return tVIRG; }
+";" { return tSCOL;}
+"==" { return tCONDEGAL; }
+"!=" { return tDIFF; }
+"<=" { return tINFEG; }
+">=" { return tSUPEG; }
+">" { return tSUP; }
+"<" { return tINF; }
+"&&" { return tAND; }
+"||" { return tOR; }
 
 [a-zA-Z][a-zA-Z_0-9]* {
 	  yylval.var = yytext[0];
