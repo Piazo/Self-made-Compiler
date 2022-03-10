@@ -38,7 +38,7 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -60,26 +60,25 @@ extern int yydebug;
     tINF = 266,
     tSUPEG = 267,
     tINFEG = 268,
-    tNOT = 269,
-    tAND = 270,
-    tOR = 271,
-    tWHILE = 272,
-    tSOU = 273,
-    tADD = 274,
-    tDIV = 275,
-    tMUL = 276,
-    tERROR = 277,
-    tMAIN = 278,
-    tCONST = 279,
-    tINT = 280,
-    tPRINT = 281,
-    tOB = 282,
-    tCB = 283,
-    tEOI = 284,
-    tVIRG = 285,
-    tNB = 286,
-    tEXP = 287,
-    tID = 288
+    tAND = 269,
+    tOR = 270,
+    tWHILE = 271,
+    tSOU = 272,
+    tADD = 273,
+    tDIV = 274,
+    tMUL = 275,
+    tERROR = 276,
+    tMAIN = 277,
+    tCONST = 278,
+    tINT = 279,
+    tPRINT = 280,
+    tOB = 281,
+    tCB = 282,
+    tEOI = 283,
+    tVIRG = 284,
+    tNB = 285,
+    tEXP = 286,
+    tID = 287
   };
 #endif
 /* Tokens.  */
@@ -94,26 +93,25 @@ extern int yydebug;
 #define tINF 266
 #define tSUPEG 267
 #define tINFEG 268
-#define tNOT 269
-#define tAND 270
-#define tOR 271
-#define tWHILE 272
-#define tSOU 273
-#define tADD 274
-#define tDIV 275
-#define tMUL 276
-#define tERROR 277
-#define tMAIN 278
-#define tCONST 279
-#define tINT 280
-#define tPRINT 281
-#define tOB 282
-#define tCB 283
-#define tEOI 284
-#define tVIRG 285
-#define tNB 286
-#define tEXP 287
-#define tID 288
+#define tAND 269
+#define tOR 270
+#define tWHILE 271
+#define tSOU 272
+#define tADD 273
+#define tDIV 274
+#define tMUL 275
+#define tERROR 276
+#define tMAIN 277
+#define tCONST 278
+#define tINT 279
+#define tPRINT 280
+#define tOB 281
+#define tCB 282
+#define tEOI 283
+#define tVIRG 284
+#define tNB 285
+#define tEXP 286
+#define tID 287
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -122,7 +120,7 @@ union YYSTYPE
 #line 7 "calc.y"
  int nb; char var; 
 
-#line 126 "y.tab.h"
+#line 124 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

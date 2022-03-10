@@ -13,7 +13,7 @@ all: $(BIN)
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 y.tab.c: $(GRM)
-	yacc -d $<
+	yacc -d -v -t $<
 
 lex.yy.c: $(LEX)
 	flex $<

@@ -5,19 +5,21 @@ int var[26];
 void yyerror(char *s);
 %}
 %union { int nb; char var; }
-%token tFL tEGAL tPO tIF tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tNOT tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
+%token tFL tEGAL tPO tIF tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
 %token <nb> tNB tEXP
 %token <var> tID
 %type <nb> Expr 
 %start Clio4
 %%
 
-Clio4 : tMAIN tOB Section tCB ;
+Clio4 : tMAIN tPO tPF Body ;
 
 Body : tOB Section tCB;
 
 Section : Expr tEOI Section
-		| Expr tEOI;
+		| Expr tEOI
+		| Expr Section
+		|;
 
 Expr : Declarations
 	| DeclaAffec 
@@ -26,7 +28,8 @@ Expr : Declarations
 	| Print 
 	| Fun 
 	| If
-	| While;
+	| While
+	| TypeNb;
 
 Fun :	TypeVar tID tPO Parametres tPF Body;
 
@@ -51,21 +54,17 @@ Sup : TermeOpe tSUP TermeOpe;
 Inf : TermeOpe tINF TermeOpe;
 Condegal : TermeOpe tCONDEGAL TermeOpe;
 
-
-
 TypeVar : tCONST tINT 
 		| tINT;
 
 TypeNb : tNB 
 	| tEXP;
 
-Declarations : Declaration Declarations 
-			| Declaration tEOI 
-			| Affectation 
-			|;
+Declarations : TypeVar Declaration Findeclaration;
 
-Declaration : TypeVar tID tVIRG 
-			| TypeVar tID;
+Declaration : tID | tID tEGAL Expr;
+Findeclaration : tEOI
+				| tVIRG Declaration Findeclaration;
 
 DeclaAffec : TypeVar tID tEGAL TypeNb tEOI 
 			| TypeVar tID tEGAL Operation tEOI;
@@ -96,7 +95,8 @@ Print : tPRINT tPO tID tPF;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
-printf("Calculatrice\n"); // yydebug=1;
-yyparse();
-return 0;
+	printf("Calculatrice\n");
+	yydebug=1;
+	yyparse();
+	return 0;
 }
