@@ -3,7 +3,7 @@ Symbol TableSymbol[128];
 typedef struct
 {
     char* name;
-    int addr;
+    int index;
     enum typeVar type;
     int profondeur;
 }Symbol;
