@@ -4,9 +4,7 @@ Terminaux inutilisés dans la grammaire
     tERROR
 
 
-État 6 conflits: 9 décalage/réduction, 1 réduction/réduction
-État 18 conflits: 10 décalage/réduction, 1 réduction/réduction
-État 43 conflits: 9 décalage/réduction, 2 réduction/réduction
+État 43 conflits: 1 réduction/réduction
 État 78 conflits: 4 décalage/réduction
 État 79 conflits: 4 décalage/réduction
 État 80 conflits: 4 décalage/réduction
@@ -85,39 +83,38 @@ Grammaire
    45       | tEXP
 
    46 Declarations: TypeVar Declaration Findeclaration
-   47             | %empty
 
-   48 Declaration: tID
-   49            | tID tEGAL Expr
+   47 Declaration: tID
+   48            | tID tEGAL Expr
 
-   50 Findeclaration: tEOI
-   51               | tVIRG Declaration Findeclaration
+   49 Findeclaration: tEOI
+   50               | tVIRG Declaration Findeclaration
 
-   52 DeclaAffec: TypeVar tID tEGAL TypeNb tEOI
-   53           | TypeVar tID tEGAL Operation tEOI
+   51 DeclaAffec: TypeVar tID tEGAL TypeNb tEOI
+   52           | TypeVar tID tEGAL Operation tEOI
 
-   54 Affectation: tID tEGAL TypeNb tEOI
-   55            | tID tEGAL Operation tEOI
+   53 Affectation: tID tEGAL TypeNb tEOI
+   54            | tID tEGAL Operation tEOI
 
-   56 Operation: Add
-   57          | Sub
-   58          | Mul
-   59          | Div
+   55 Operation: Add
+   56          | Sub
+   57          | Mul
+   58          | Div
 
-   60 Add: TermeOpe tADD TermeOpe
+   59 Add: TermeOpe tADD TermeOpe
 
-   61 Sub: TermeOpe tSOU TermeOpe
+   60 Sub: TermeOpe tSOU TermeOpe
 
-   62 Mul: TermeOpe tMUL TermeOpe
+   61 Mul: TermeOpe tMUL TermeOpe
 
-   63 Div: TermeOpe tDIV TermeOpe
+   62 Div: TermeOpe tDIV TermeOpe
 
-   64 TermeOpe: tPO Operation tPF
-   65         | Operation
-   66         | tID
-   67         | TypeNb
+   63 TermeOpe: tPO Operation tPF
+   64         | Operation
+   65         | tID
+   66         | TypeNb
 
-   68 Print: tPRINT tPO tID tPF
+   67 Print: tPRINT tPO tID tPF
 
 
 Terminaux, suivis des règles où ils apparaissent
@@ -125,10 +122,10 @@ Terminaux, suivis des règles où ils apparaissent
     $end (0) 0
     error (256)
     tFL (258)
-    tEGAL (259) 49 52 53 54 55
-    tPO (260) 1 16 20 21 64 68
+    tEGAL (259) 48 51 52 53 54
+    tPO (260) 1 16 20 21 63 67
     tIF (261) 20
-    tPF (262) 1 16 20 21 64 68
+    tPF (262) 1 16 20 21 63 67
     tCONDEGAL (263) 41
     tDIFF (264) 36
     tSUP (265) 39
@@ -138,22 +135,22 @@ Terminaux, suivis des règles où ils apparaissent
     tAND (269) 23
     tOR (270) 22
     tWHILE (271) 21
-    tSOU (272) 61
-    tADD (273) 60
-    tDIV (274) 63
-    tMUL (275) 62
+    tSOU (272) 60
+    tADD (273) 59
+    tDIV (274) 62
+    tMUL (275) 61
     tERROR (276)
     tMAIN (277) 1
     tCONST (278) 42
     tINT (279) 42 43
-    tPRINT (280) 68
+    tPRINT (280) 67
     tOB (281) 2
     tCB (282) 2
-    tEOI (283) 3 4 50 52 53 54 55
-    tVIRG (284) 17 51
+    tEOI (283) 3 4 49 51 52 53 54
+    tVIRG (284) 17 50
     tNB <nb> (285) 29 44
     tEXP <nb> (286) 45
-    tID <var> (287) 16 28 48 49 52 53 54 55 66 68
+    tID <var> (287) 16 28 47 48 51 52 53 54 65 67
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -171,7 +168,7 @@ Non-terminaux, suivis des règles où ils apparaissent
         à droite: 2 3 5
     Expr <nb> (37)
         à gauche: 7 8 9 10 11 12 13 14 15
-        à droite: 3 4 5 49
+        à droite: 3 4 5 48
     Fun (38)
         à gauche: 16
         à droite: 12
@@ -216,45 +213,45 @@ Non-terminaux, suivis des règles où ils apparaissent
         à droite: 35
     TypeVar (52)
         à gauche: 42 43
-        à droite: 16 46 52 53
+        à droite: 16 46 51 52
     TypeNb (53)
         à gauche: 44 45
-        à droite: 15 52 54 67
+        à droite: 15 51 53 66
     Declarations (54)
-        à gauche: 46 47
+        à gauche: 46
         à droite: 7
     Declaration (55)
-        à gauche: 48 49
-        à droite: 17 18 46 51
+        à gauche: 47 48
+        à droite: 17 18 46 50
     Findeclaration (56)
-        à gauche: 50 51
-        à droite: 46 51
+        à gauche: 49 50
+        à droite: 46 50
     DeclaAffec (57)
-        à gauche: 52 53
+        à gauche: 51 52
         à droite: 8
     Affectation (58)
-        à gauche: 54 55
+        à gauche: 53 54
         à droite: 9
     Operation (59)
-        à gauche: 56 57 58 59
-        à droite: 10 53 55 64 65
+        à gauche: 55 56 57 58
+        à droite: 10 52 54 63 64
     Add (60)
+        à gauche: 59
+        à droite: 55
+    Sub (61)
         à gauche: 60
         à droite: 56
-    Sub (61)
+    Mul (62)
         à gauche: 61
         à droite: 57
-    Mul (62)
+    Div (63)
         à gauche: 62
         à droite: 58
-    Div (63)
-        à gauche: 63
-        à droite: 59
     TermeOpe (64)
-        à gauche: 64 65 66 67
-        à droite: 36 37 38 39 40 41 60 61 62 63
+        à gauche: 63 64 65 66
+        à droite: 36 37 38 39 40 41 59 60 61 62
     Print (65)
-        à gauche: 68
+        à gauche: 67
         à droite: 11
 
 
@@ -318,18 +315,6 @@ Non-terminaux, suivis des règles où ils apparaissent
     tEXP    décalage et aller à l'état 15
     tID     décalage et aller à l'état 16
 
-    tPO       [réduction par utilisation de la règle 47 (Declarations)]
-    tIF       [réduction par utilisation de la règle 47 (Declarations)]
-    tWHILE    [réduction par utilisation de la règle 47 (Declarations)]
-    tCONST    [réduction par utilisation de la règle 47 (Declarations)]
-    tINT      [réduction par utilisation de la règle 47 (Declarations)]
-    tPRINT    [réduction par utilisation de la règle 47 (Declarations)]
-    tCB       réduction par utilisation de la règle 6 (Section)
-    tCB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEOI      réduction par utilisation de la règle 47 (Declarations)
-    tNB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEXP      [réduction par utilisation de la règle 47 (Declarations)]
-    tID       [réduction par utilisation de la règle 47 (Declarations)]
     $défaut  réduction par utilisation de la règle 6 (Section)
 
     Section       aller à l'état 17
@@ -360,7 +345,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 8
 
-   64 TermeOpe: tPO . Operation tPF
+   63 TermeOpe: tPO . Operation tPF
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -406,7 +391,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 13
 
-   68 Print: tPRINT . tPO tID tPF
+   67 Print: tPRINT . tPO tID tPF
 
     tPO  décalage et aller à l'état 40
 
@@ -427,13 +412,13 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 16
 
-   54 Affectation: tID . tEGAL TypeNb tEOI
-   55            | tID . tEGAL Operation tEOI
-   66 TermeOpe: tID .
+   53 Affectation: tID . tEGAL TypeNb tEOI
+   54            | tID . tEGAL Operation tEOI
+   65 TermeOpe: tID .
 
     tEGAL  décalage et aller à l'état 41
 
-    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
 
 
 État 17
@@ -460,18 +445,6 @@ Non-terminaux, suivis des règles où ils apparaissent
     tEXP    décalage et aller à l'état 15
     tID     décalage et aller à l'état 16
 
-    tPO       [réduction par utilisation de la règle 47 (Declarations)]
-    tIF       [réduction par utilisation de la règle 47 (Declarations)]
-    tWHILE    [réduction par utilisation de la règle 47 (Declarations)]
-    tCONST    [réduction par utilisation de la règle 47 (Declarations)]
-    tINT      [réduction par utilisation de la règle 47 (Declarations)]
-    tPRINT    [réduction par utilisation de la règle 47 (Declarations)]
-    tCB       réduction par utilisation de la règle 6 (Section)
-    tCB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEOI      [réduction par utilisation de la règle 47 (Declarations)]
-    tNB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEXP      [réduction par utilisation de la règle 47 (Declarations)]
-    tID       [réduction par utilisation de la règle 47 (Declarations)]
     $défaut  réduction par utilisation de la règle 6 (Section)
 
     Section       aller à l'état 44
@@ -518,8 +491,8 @@ Non-terminaux, suivis des règles où ils apparaissent
 
    16 Fun: TypeVar . tID tPO Parametres tPF Body
    46 Declarations: TypeVar . Declaration Findeclaration
-   52 DeclaAffec: TypeVar . tID tEGAL TypeNb tEOI
-   53           | TypeVar . tID tEGAL Operation tEOI
+   51 DeclaAffec: TypeVar . tID tEGAL TypeNb tEOI
+   52           | TypeVar . tID tEGAL Operation tEOI
 
     tID  décalage et aller à l'état 45
 
@@ -529,12 +502,12 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 23
 
    15 Expr: TypeNb .
-   67 TermeOpe: TypeNb .
+   66 TermeOpe: TypeNb .
 
-    tSOU      réduction par utilisation de la règle 67 (TermeOpe)
-    tADD      réduction par utilisation de la règle 67 (TermeOpe)
-    tDIV      réduction par utilisation de la règle 67 (TermeOpe)
-    tMUL      réduction par utilisation de la règle 67 (TermeOpe)
+    tSOU      réduction par utilisation de la règle 66 (TermeOpe)
+    tADD      réduction par utilisation de la règle 66 (TermeOpe)
+    tDIV      réduction par utilisation de la règle 66 (TermeOpe)
+    tMUL      réduction par utilisation de la règle 66 (TermeOpe)
     $défaut  réduction par utilisation de la règle 15 (Expr)
 
 
@@ -562,49 +535,49 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 27
 
    10 Expr: Operation .
-   65 TermeOpe: Operation .
+   64 TermeOpe: Operation .
 
-    tSOU      réduction par utilisation de la règle 65 (TermeOpe)
-    tADD      réduction par utilisation de la règle 65 (TermeOpe)
-    tDIV      réduction par utilisation de la règle 65 (TermeOpe)
-    tMUL      réduction par utilisation de la règle 65 (TermeOpe)
+    tSOU      réduction par utilisation de la règle 64 (TermeOpe)
+    tADD      réduction par utilisation de la règle 64 (TermeOpe)
+    tDIV      réduction par utilisation de la règle 64 (TermeOpe)
+    tMUL      réduction par utilisation de la règle 64 (TermeOpe)
     $défaut  réduction par utilisation de la règle 10 (Expr)
 
 
 État 28
 
-   56 Operation: Add .
+   55 Operation: Add .
 
-    $défaut  réduction par utilisation de la règle 56 (Operation)
+    $défaut  réduction par utilisation de la règle 55 (Operation)
 
 
 État 29
 
-   57 Operation: Sub .
+   56 Operation: Sub .
 
-    $défaut  réduction par utilisation de la règle 57 (Operation)
+    $défaut  réduction par utilisation de la règle 56 (Operation)
 
 
 État 30
 
-   58 Operation: Mul .
+   57 Operation: Mul .
 
-    $défaut  réduction par utilisation de la règle 58 (Operation)
+    $défaut  réduction par utilisation de la règle 57 (Operation)
 
 
 État 31
 
-   59 Operation: Div .
+   58 Operation: Div .
 
-    $défaut  réduction par utilisation de la règle 59 (Operation)
+    $défaut  réduction par utilisation de la règle 58 (Operation)
 
 
 État 32
 
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -621,26 +594,26 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 34
 
-   66 TermeOpe: tID .
+   65 TermeOpe: tID .
 
-    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
 
 
 État 35
 
-   67 TermeOpe: TypeNb .
+   66 TermeOpe: TypeNb .
 
-    $défaut  réduction par utilisation de la règle 67 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
 
 
 État 36
 
-   64 TermeOpe: tPO Operation . tPF
-   65         | Operation .
+   63 TermeOpe: tPO Operation . tPF
+   64         | Operation .
 
     tPF  décalage et aller à l'état 51
 
-    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 64 (TermeOpe)
 
 
 État 37
@@ -712,15 +685,15 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 40
 
-   68 Print: tPRINT tPO . tID tPF
+   67 Print: tPRINT tPO . tID tPF
 
     tID  décalage et aller à l'état 69
 
 
 État 41
 
-   54 Affectation: tID tEGAL . TypeNb tEOI
-   55            | tID tEGAL . Operation tEOI
+   53 Affectation: tID tEGAL . TypeNb tEOI
+   54            | tID tEGAL . Operation tEOI
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -758,19 +731,8 @@ Non-terminaux, suivis des règles où ils apparaissent
     tEXP    décalage et aller à l'état 15
     tID     décalage et aller à l'état 16
 
-    tPO       [réduction par utilisation de la règle 47 (Declarations)]
-    tIF       [réduction par utilisation de la règle 47 (Declarations)]
-    tWHILE    [réduction par utilisation de la règle 47 (Declarations)]
-    tCONST    [réduction par utilisation de la règle 47 (Declarations)]
-    tINT      [réduction par utilisation de la règle 47 (Declarations)]
-    tPRINT    [réduction par utilisation de la règle 47 (Declarations)]
     tCB       réduction par utilisation de la règle 4 (Section)
     tCB       [réduction par utilisation de la règle 6 (Section)]
-    tCB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEOI      réduction par utilisation de la règle 47 (Declarations)
-    tNB       [réduction par utilisation de la règle 47 (Declarations)]
-    tEXP      [réduction par utilisation de la règle 47 (Declarations)]
-    tID       [réduction par utilisation de la règle 47 (Declarations)]
     $défaut  réduction par utilisation de la règle 4 (Section)
 
     Section       aller à l'état 72
@@ -802,15 +764,15 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 45
 
    16 Fun: TypeVar tID . tPO Parametres tPF Body
-   48 Declaration: tID .
-   49            | tID . tEGAL Expr
-   52 DeclaAffec: TypeVar tID . tEGAL TypeNb tEOI
-   53           | TypeVar tID . tEGAL Operation tEOI
+   47 Declaration: tID .
+   48            | tID . tEGAL Expr
+   51 DeclaAffec: TypeVar tID . tEGAL TypeNb tEOI
+   52           | TypeVar tID . tEGAL Operation tEOI
 
     tEGAL  décalage et aller à l'état 73
     tPO    décalage et aller à l'état 74
 
-    $défaut  réduction par utilisation de la règle 48 (Declaration)
+    $défaut  réduction par utilisation de la règle 47 (Declaration)
 
 
 État 46
@@ -825,7 +787,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 47
 
-   61 Sub: TermeOpe tSOU . TermeOpe
+   60 Sub: TermeOpe tSOU . TermeOpe
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -843,7 +805,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 48
 
-   60 Add: TermeOpe tADD . TermeOpe
+   59 Add: TermeOpe tADD . TermeOpe
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -861,7 +823,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 49
 
-   63 Div: TermeOpe tDIV . TermeOpe
+   62 Div: TermeOpe tDIV . TermeOpe
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -879,7 +841,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 50
 
-   62 Mul: TermeOpe tMUL . TermeOpe
+   61 Mul: TermeOpe tMUL . TermeOpe
 
     tPO   décalage et aller à l'état 8
     tNB   décalage et aller à l'état 14
@@ -897,9 +859,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 51
 
-   64 TermeOpe: tPO Operation tPF .
+   63 TermeOpe: tPO Operation tPF .
 
-    $défaut  réduction par utilisation de la règle 64 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 63 (TermeOpe)
 
 
 État 52
@@ -930,12 +892,12 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 55
 
    28 Condition: tID .
-   66 TermeOpe: tID .
+   65 TermeOpe: tID .
 
     tPF       réduction par utilisation de la règle 28 (Condition)
     tAND      réduction par utilisation de la règle 28 (Condition)
     tOR       réduction par utilisation de la règle 28 (Condition)
-    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
 
 
 État 56
@@ -1039,9 +1001,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 66
 
-   65 TermeOpe: Operation .
+   64 TermeOpe: Operation .
 
-    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 64 (TermeOpe)
 
 
 État 67
@@ -1052,10 +1014,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    39 Sup: TermeOpe . tSUP TermeOpe
    40 Inf: TermeOpe . tINF TermeOpe
    41 Condegal: TermeOpe . tCONDEGAL TermeOpe
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tCONDEGAL  décalage et aller à l'état 85
     tDIFF      décalage et aller à l'état 86
@@ -1078,29 +1040,29 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 69
 
-   68 Print: tPRINT tPO tID . tPF
+   67 Print: tPRINT tPO tID . tPF
 
     tPF  décalage et aller à l'état 92
 
 
 État 70
 
-   54 Affectation: tID tEGAL TypeNb . tEOI
-   67 TermeOpe: TypeNb .
+   53 Affectation: tID tEGAL TypeNb . tEOI
+   66 TermeOpe: TypeNb .
 
     tEOI  décalage et aller à l'état 93
 
-    $défaut  réduction par utilisation de la règle 67 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
 
 
 État 71
 
-   55 Affectation: tID tEGAL Operation . tEOI
-   65 TermeOpe: Operation .
+   54 Affectation: tID tEGAL Operation . tEOI
+   64 TermeOpe: Operation .
 
     tEOI  décalage et aller à l'état 94
 
-    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 64 (TermeOpe)
 
 
 État 72
@@ -1112,9 +1074,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 73
 
-   49 Declaration: tID tEGAL . Expr
-   52 DeclaAffec: TypeVar tID tEGAL . TypeNb tEOI
-   53           | TypeVar tID tEGAL . Operation tEOI
+   48 Declaration: tID tEGAL . Expr
+   51 DeclaAffec: TypeVar tID tEGAL . TypeNb tEOI
+   52           | TypeVar tID tEGAL . Operation tEOI
 
     tPO     décalage et aller à l'état 8
     tIF     décalage et aller à l'état 9
@@ -1125,8 +1087,6 @@ Non-terminaux, suivis des règles où ils apparaissent
     tNB     décalage et aller à l'état 14
     tEXP    décalage et aller à l'état 15
     tID     décalage et aller à l'état 16
-
-    $défaut  réduction par utilisation de la règle 47 (Declarations)
 
     Expr          aller à l'état 95
     Fun           aller à l'état 19
@@ -1160,14 +1120,14 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 75
 
-   50 Findeclaration: tEOI .
+   49 Findeclaration: tEOI .
 
-    $défaut  réduction par utilisation de la règle 50 (Findeclaration)
+    $défaut  réduction par utilisation de la règle 49 (Findeclaration)
 
 
 État 76
 
-   51 Findeclaration: tVIRG . Declaration Findeclaration
+   50 Findeclaration: tVIRG . Declaration Findeclaration
 
     tID  décalage et aller à l'état 98
 
@@ -1183,82 +1143,82 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 78
 
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   61    | TermeOpe tSOU TermeOpe .
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   60    | TermeOpe tSOU TermeOpe .
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
     tDIV  décalage et aller à l'état 49
     tMUL  décalage et aller à l'état 50
 
-    tSOU      [réduction par utilisation de la règle 61 (Sub)]
-    tADD      [réduction par utilisation de la règle 61 (Sub)]
-    tDIV      [réduction par utilisation de la règle 61 (Sub)]
-    tMUL      [réduction par utilisation de la règle 61 (Sub)]
-    $défaut  réduction par utilisation de la règle 61 (Sub)
+    tSOU      [réduction par utilisation de la règle 60 (Sub)]
+    tADD      [réduction par utilisation de la règle 60 (Sub)]
+    tDIV      [réduction par utilisation de la règle 60 (Sub)]
+    tMUL      [réduction par utilisation de la règle 60 (Sub)]
+    $défaut  réduction par utilisation de la règle 60 (Sub)
 
 
 État 79
 
-   60 Add: TermeOpe . tADD TermeOpe
-   60    | TermeOpe tADD TermeOpe .
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   59    | TermeOpe tADD TermeOpe .
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
     tDIV  décalage et aller à l'état 49
     tMUL  décalage et aller à l'état 50
 
-    tSOU      [réduction par utilisation de la règle 60 (Add)]
-    tADD      [réduction par utilisation de la règle 60 (Add)]
-    tDIV      [réduction par utilisation de la règle 60 (Add)]
-    tMUL      [réduction par utilisation de la règle 60 (Add)]
-    $défaut  réduction par utilisation de la règle 60 (Add)
+    tSOU      [réduction par utilisation de la règle 59 (Add)]
+    tADD      [réduction par utilisation de la règle 59 (Add)]
+    tDIV      [réduction par utilisation de la règle 59 (Add)]
+    tMUL      [réduction par utilisation de la règle 59 (Add)]
+    $défaut  réduction par utilisation de la règle 59 (Add)
 
 
 État 80
 
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
-   63    | TermeOpe tDIV TermeOpe .
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
+   62    | TermeOpe tDIV TermeOpe .
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
     tDIV  décalage et aller à l'état 49
     tMUL  décalage et aller à l'état 50
 
-    tSOU      [réduction par utilisation de la règle 63 (Div)]
-    tADD      [réduction par utilisation de la règle 63 (Div)]
-    tDIV      [réduction par utilisation de la règle 63 (Div)]
-    tMUL      [réduction par utilisation de la règle 63 (Div)]
-    $défaut  réduction par utilisation de la règle 63 (Div)
+    tSOU      [réduction par utilisation de la règle 62 (Div)]
+    tADD      [réduction par utilisation de la règle 62 (Div)]
+    tDIV      [réduction par utilisation de la règle 62 (Div)]
+    tMUL      [réduction par utilisation de la règle 62 (Div)]
+    $défaut  réduction par utilisation de la règle 62 (Div)
 
 
 État 81
 
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   62    | TermeOpe tMUL TermeOpe .
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   61    | TermeOpe tMUL TermeOpe .
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
     tDIV  décalage et aller à l'état 49
     tMUL  décalage et aller à l'état 50
 
-    tSOU      [réduction par utilisation de la règle 62 (Mul)]
-    tADD      [réduction par utilisation de la règle 62 (Mul)]
-    tDIV      [réduction par utilisation de la règle 62 (Mul)]
-    tMUL      [réduction par utilisation de la règle 62 (Mul)]
-    $défaut  réduction par utilisation de la règle 62 (Mul)
+    tSOU      [réduction par utilisation de la règle 61 (Mul)]
+    tADD      [réduction par utilisation de la règle 61 (Mul)]
+    tDIV      [réduction par utilisation de la règle 61 (Mul)]
+    tMUL      [réduction par utilisation de la règle 61 (Mul)]
+    $défaut  réduction par utilisation de la règle 61 (Mul)
 
 
 État 82
@@ -1426,66 +1386,66 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 92
 
-   68 Print: tPRINT tPO tID tPF .
+   67 Print: tPRINT tPO tID tPF .
 
-    $défaut  réduction par utilisation de la règle 68 (Print)
+    $défaut  réduction par utilisation de la règle 67 (Print)
 
 
 État 93
 
-   54 Affectation: tID tEGAL TypeNb tEOI .
+   53 Affectation: tID tEGAL TypeNb tEOI .
 
-    $défaut  réduction par utilisation de la règle 54 (Affectation)
+    $défaut  réduction par utilisation de la règle 53 (Affectation)
 
 
 État 94
 
-   55 Affectation: tID tEGAL Operation tEOI .
+   54 Affectation: tID tEGAL Operation tEOI .
 
-    $défaut  réduction par utilisation de la règle 55 (Affectation)
+    $défaut  réduction par utilisation de la règle 54 (Affectation)
 
 
 État 95
 
-   49 Declaration: tID tEGAL Expr .
+   48 Declaration: tID tEGAL Expr .
 
-    $défaut  réduction par utilisation de la règle 49 (Declaration)
+    $défaut  réduction par utilisation de la règle 48 (Declaration)
 
 
 État 96
 
    15 Expr: TypeNb .
-   52 DeclaAffec: TypeVar tID tEGAL TypeNb . tEOI
-   67 TermeOpe: TypeNb .
+   51 DeclaAffec: TypeVar tID tEGAL TypeNb . tEOI
+   66 TermeOpe: TypeNb .
 
     tEOI  décalage et aller à l'état 111
 
     tEOI      [réduction par utilisation de la règle 15 (Expr)]
     tVIRG     réduction par utilisation de la règle 15 (Expr)
-    $défaut  réduction par utilisation de la règle 67 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 66 (TermeOpe)
 
 
 État 97
 
    10 Expr: Operation .
-   53 DeclaAffec: TypeVar tID tEGAL Operation . tEOI
-   65 TermeOpe: Operation .
+   52 DeclaAffec: TypeVar tID tEGAL Operation . tEOI
+   64 TermeOpe: Operation .
 
     tEOI  décalage et aller à l'état 112
 
     tEOI      [réduction par utilisation de la règle 10 (Expr)]
     tVIRG     réduction par utilisation de la règle 10 (Expr)
-    $défaut  réduction par utilisation de la règle 65 (TermeOpe)
+    $défaut  réduction par utilisation de la règle 64 (TermeOpe)
 
 
 État 98
 
-   48 Declaration: tID .
-   49            | tID . tEGAL Expr
+   47 Declaration: tID .
+   48            | tID . tEGAL Expr
 
     tEGAL  décalage et aller à l'état 113
 
-    $défaut  réduction par utilisation de la règle 48 (Declaration)
+    $défaut  réduction par utilisation de la règle 47 (Declaration)
 
 
 État 99
@@ -1507,7 +1467,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 101
 
-   51 Findeclaration: tVIRG Declaration . Findeclaration
+   50 Findeclaration: tVIRG Declaration . Findeclaration
 
     tEOI   décalage et aller à l'état 75
     tVIRG  décalage et aller à l'état 76
@@ -1532,10 +1492,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 104
 
    41 Condegal: TermeOpe tCONDEGAL TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1548,10 +1508,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 105
 
    36 Diff: TermeOpe tDIFF TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1564,10 +1524,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 106
 
    39 Sup: TermeOpe tSUP TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1580,10 +1540,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 107
 
    40 Inf: TermeOpe tINF TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1596,10 +1556,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 108
 
    38 Supeg: TermeOpe tSUPEG TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1612,10 +1572,10 @@ Non-terminaux, suivis des règles où ils apparaissent
 État 109
 
    37 Infeg: TermeOpe tINFEG TermeOpe .
-   60 Add: TermeOpe . tADD TermeOpe
-   61 Sub: TermeOpe . tSOU TermeOpe
-   62 Mul: TermeOpe . tMUL TermeOpe
-   63 Div: TermeOpe . tDIV TermeOpe
+   59 Add: TermeOpe . tADD TermeOpe
+   60 Sub: TermeOpe . tSOU TermeOpe
+   61 Mul: TermeOpe . tMUL TermeOpe
+   62 Div: TermeOpe . tDIV TermeOpe
 
     tSOU  décalage et aller à l'état 47
     tADD  décalage et aller à l'état 48
@@ -1634,21 +1594,21 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 111
 
-   52 DeclaAffec: TypeVar tID tEGAL TypeNb tEOI .
+   51 DeclaAffec: TypeVar tID tEGAL TypeNb tEOI .
 
-    $défaut  réduction par utilisation de la règle 52 (DeclaAffec)
+    $défaut  réduction par utilisation de la règle 51 (DeclaAffec)
 
 
 État 112
 
-   53 DeclaAffec: TypeVar tID tEGAL Operation tEOI .
+   52 DeclaAffec: TypeVar tID tEGAL Operation tEOI .
 
-    $défaut  réduction par utilisation de la règle 53 (DeclaAffec)
+    $défaut  réduction par utilisation de la règle 52 (DeclaAffec)
 
 
 État 113
 
-   49 Declaration: tID tEGAL . Expr
+   48 Declaration: tID tEGAL . Expr
 
     tPO     décalage et aller à l'état 8
     tIF     décalage et aller à l'état 9
@@ -1659,8 +1619,6 @@ Non-terminaux, suivis des règles où ils apparaissent
     tNB     décalage et aller à l'état 14
     tEXP    décalage et aller à l'état 15
     tID     décalage et aller à l'état 16
-
-    $défaut  réduction par utilisation de la règle 47 (Declarations)
 
     Expr          aller à l'état 95
     Fun           aller à l'état 19
@@ -1703,9 +1661,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 116
 
-   51 Findeclaration: tVIRG Declaration Findeclaration .
+   50 Findeclaration: tVIRG Declaration Findeclaration .
 
-    $défaut  réduction par utilisation de la règle 51 (Findeclaration)
+    $défaut  réduction par utilisation de la règle 50 (Findeclaration)
 
 
 État 117

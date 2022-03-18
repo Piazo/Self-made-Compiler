@@ -1,16 +1,20 @@
-Symbol TableSymbol[128];
+#define TABLESIZE 128
 
 typedef struct
 {
     char* name;
+    char* type;
     int index;
-    enum typeVar type;
     int profondeur;
+    int est_une_cst; //si 0, var pas constante, si 1 var constante
 }Symbol;
 
-enum typeVar {
-    t_int
-};
+Symbol TableSymbol[TABLESIZE];
 
-int addSymbol (char* NomSymbol, typeVar type, int profondeur);
-int delSymbol (Symbol Symbol);
+void addSymbol (char* NomSymbol);
+void delSymbol ();
+void incr_profondeur();
+void decrem_profondeur();
+void update_type(char* type, int cst);
+void print_symbol();
+int get_index(char* name);

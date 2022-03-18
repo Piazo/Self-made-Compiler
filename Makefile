@@ -24,3 +24,5 @@ $(BIN): $(OBJ)
 clean:
 	rm $(OBJ) y.tab.c y.tab.h lex.yy.c
 
+tests_ok : all
+	./test_ok.sh
