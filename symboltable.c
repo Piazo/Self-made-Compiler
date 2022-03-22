@@ -2,6 +2,9 @@
 #include "symboltable.h"
 #include "stdio.h"
 
+#define TABLESIZE 128
+Symbol TableSymbol[TABLESIZE];
+
 int index = -1;
 int type_index = -1
 int profondeur = 0;
@@ -14,9 +17,13 @@ void decrem_profondeur(){
     profondeur--;
 }
 
-void addSymbol (char* NomSymbol){
+void addSymbol (char* NomSymbol, int typevar){
     index++;
-    TableSymbol[index] = {.name = NomSymbol, .type=NULL, .index = index, .profondeur = profondeur}
+    if (typevar == 1){
+        TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur, .est_une_cst=1};
+    }else{
+        TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur, .est_une_cst=0};
+    }
 }
 
 void delSymbol (){
@@ -24,14 +31,6 @@ void delSymbol (){
     profondeur--;
     while(index>1 && TableSymbol[index].profondeur == profdr){
         index--;
-    }
-}
-
-void update_type(char* type, int cst){
-    while (type_index < index){
-        type_index++;
-        TableSymbol[type_index].type = type;
-        TableSymbol[type_index].est_une_cst = cst;
     }
 }
 

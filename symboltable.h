@@ -1,4 +1,4 @@
-#define TABLESIZE 128
+
 
 typedef struct
 {
@@ -9,7 +9,6 @@ typedef struct
     int est_une_cst; //si 0, var pas constante, si 1 var constante
 }Symbol;
 
-Symbol TableSymbol[TABLESIZE];
 
 void addSymbol (char* NomSymbol);
 void delSymbol ();

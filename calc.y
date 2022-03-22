@@ -1,8 +1,11 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
+#include "symboltable.h"
+#include "assembleur.h"
 int var[26];
 void yyerror(char *s);
+int type = 2;
 %}
 %union { int nb; char var; }
 %token tFL tEGAL tPO tIF tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
@@ -14,7 +17,7 @@ void yyerror(char *s);
 
 Clio4 : tMAIN tPO tPF Body ;
 
-Body : tOB Section tCB;
+Body : tOB {incr_profondeur} Section tCB {decrem_profondeur};
 
 Section : Expr tEOI Section
 		| Expr tEOI
@@ -54,28 +57,30 @@ Sup : TermeOpe tSUP TermeOpe;
 Inf : TermeOpe tINF TermeOpe;
 Condegal : TermeOpe tCONDEGAL TermeOpe;
 
-TypeVar : tCONST tINT 
-		| tINT;
+TypeVar : tCONST tINT  { type = 1; }
+		| tINT { type = 2; };
 
 TypeNb : tNB 
-	| tEXP;
+		| tEXP;
 
 Declarations : TypeVar Declaration Findeclaration;
 
-Declaration : tID | tID tEGAL Expr;
+Declaration : tID {addsymbol($1, type);}
+			| tID {addsymbol($1, type);} tEGAL Expr;
+
 Findeclaration : tEOI
 				| tVIRG Declaration Findeclaration;
 
-DeclaAffec : TypeVar tID tEGAL TypeNb tEOI 
-			| TypeVar tID tEGAL Operation tEOI;
+DeclaAffec : TypeVar tID {addsymbol($1, type);} tEGAL TypeNb tEOI 
+			| TypeVar tID {addsymbol($1, type);} tEGAL Operation tEOI;
 
 Affectation : tID tEGAL TypeNb tEOI 
 			| tID tEGAL Operation tEOI;
 
-Operation :	Add 
+Operation :	Add {select_operator();} 
 			| Sub 
 			| Mul 
-			| Div;
+			| Div; /*GERER LES PRIOS D'ADDITION ET MUL*/
 
 Add : TermeOpe tADD TermeOpe;
 
