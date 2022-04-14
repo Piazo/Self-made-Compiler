@@ -42,15 +42,15 @@ COMPONENT UAL
            O : out STD_LOGIC;
            Z : out STD_LOGIC;
            C : out STD_LOGIC;
-           S : out STD_LOGIC_VECTOR (15 downto 0);
-           A : in STD_LOGIC_VECTOR (15 downto 0);
-           B : in STD_LOGIC_VECTOR (15 downto 0);
+           S : out STD_LOGIC_VECTOR (7 downto 0);
+           A : in STD_LOGIC_VECTOR (7 downto 0);
+           B : in STD_LOGIC_VECTOR (7 downto 0);
            Ctrl_Alu : in STD_LOGIC_VECTOR (1 downto 0));
 end COMPONENT;
 
 --INPUTS
-signal testa : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
-signal testb : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
+signal testa : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
+signal testb : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 signal testCtrlAlu : STD_LOGIC_VECTOR (1 downto 0) := "00";
 
 --OUTPUTS
@@ -58,7 +58,7 @@ signal testn : STD_LOGIC;
 signal testo : STD_LOGIC;
 signal testz : STD_LOGIC;
 signal testc : STD_LOGIC;
-signal tests : STD_LOGIC_VECTOR(15 downto 0);
+signal tests : STD_LOGIC_VECTOR(7 downto 0);
 
 
 begin
@@ -72,8 +72,8 @@ Label_uut : UAL PORT MAP(
     C => testc,
     S => tests);
     
-testa <= X"0001";
-testb <= X"0005";
+testa <= X"01";
+testb <= X"ff";
 testCtrlAlu <= "00";
 
 

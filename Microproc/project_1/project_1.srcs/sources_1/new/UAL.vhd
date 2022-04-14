@@ -38,29 +38,29 @@ entity UAL is
            O : out STD_LOGIC;
            Z : out STD_LOGIC;
            C : out STD_LOGIC;
-           S : out STD_LOGIC_VECTOR (15 downto 0);
-           A : in STD_LOGIC_VECTOR (15 downto 0);
-           B : in STD_LOGIC_VECTOR (15 downto 0);
+           S : out STD_LOGIC_VECTOR (7 downto 0);
+           A : in STD_LOGIC_VECTOR (7 downto 0);
+           B : in STD_LOGIC_VECTOR (7 downto 0);
            Ctrl_Alu : in STD_LOGIC_VECTOR (1 downto 0));
 end UAL;
 
 architecture Behavioral of UAL is
 
-    signal Aux : STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+    signal Aux : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
         
 begin
 
 
-    Aux <= (( X"0000"&A) + ( X"0000"&B)) when Ctrl_Alu = "00" else
-           (( X"0000"&A) - ( X"0000"&B)) when Ctrl_Alu = "01" else 
+    Aux <= (( X"00"&A) + ( X"00"&B)) when Ctrl_Alu = "00" else
+           (( X"00"&A) - ( X"00"&B)) when Ctrl_Alu = "01" else 
            A * B when Ctrl_Alu = "10" else
-           X"00000000";
+           X"0000";
            
     
-    N <= '1' when (Ctrl_Alu = "01" and (A > B)) else '0';
-    O <= '1' when (Ctrl_Alu = "10" and Aux > X"0000FFFF") else '0';
-    Z <= '1' when (Aux = X"00000000") else '0';
-    C <= '1' when (Ctrl_Alu = "00" and Aux > X"0000FFFF") else '0';
+    N <= '1' when (Ctrl_Alu = "01" and (A < B)) else '0';
+    O <= '1' when (Ctrl_Alu = "10" and Aux > X"00FF") else '0';
+    Z <= '1' when (Aux = X"0000") else '0';
+    C <= '1' when (Ctrl_Alu = "00" and Aux > X"00FF") else '0';
            
-    S <= Aux(15 downto 0);
+    S <= Aux(7 downto 0);
 end Behavioral;
