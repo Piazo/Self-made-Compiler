@@ -2,7 +2,10 @@
 2018.2
 Jun 14 2018
 20:07:38
-/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/test_BancDeRegistre.vhd,1649930513,vhdl,,,,test_bancderegistre,,,,,,,,
+/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/Test_BancMemoireDonnees.vhd,1650618001,vhdl,,,,test_bancmemoiredonnees,,,,,,,,
+/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/test_BancDeRegistre.vhd,1650617065,vhdl,,,,test_bancderegistre,,,,,,,,
 /home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/test_UAL.vhd,1649929350,vhdl,,,,test_ual,,,,,,,,
-/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancDeRegistre.vhd,1649929047,vhdl,,,,bancderegistre,,,,,,,,
+/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancDeRegistre.vhd,1650616497,vhdl,,,,bancderegistre,,,,,,,,
+/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancMemoireDonnees.vhd,1650616114,vhdl,,,,,,,,,,,,
+/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancMemoireInstructions.vhd,1650616123,vhdl,,,,bancmemoire,,,,,,,,
 /home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/UAL.vhd,1649930139,vhdl,,,,ual,,,,,,,,

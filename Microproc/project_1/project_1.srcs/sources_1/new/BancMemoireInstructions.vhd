@@ -21,6 +21,8 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.Numeric_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -32,17 +34,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity BancMemoire is
-    Port ( Adr : in STD_LOGIC;
-           IN : in STD_LOGIC;
-           RW : in STD_LOGIC;
-           RST : in STD_LOGIC;
+    Port ( Adr : in STD_LOGIC_VECTOR (7 downto 0);
            CLK : in STD_LOGIC;
-           OUT : in STD_LOGIC);
+           Vect_OUT : out STD_LOGIC_VECTOR(31 downto 0));
 end BancMemoire;
 
 architecture Behavioral of BancMemoire is
 
+    type tabVal is array(0 to 255) of std_logic_vector(31 downto 0);
+    signal Registres: tabVal := (others => (31 downto 0 => '0'));
+    
 begin
 
+process
+begin
+    wait until rising_edge(CLK);
+    Vect_OUT <= Registres(to_integer(unsigned(Adr)));
+end process;
 
 end Behavioral;
