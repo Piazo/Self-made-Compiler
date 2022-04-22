@@ -33,11 +33,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity BancMemoire is
     Port ( Adr : in STD_LOGIC;
-           IN : in STD_LOGIC;
+           Input : in STD_LOGIC_VECTOR (7 downto 0);
            RW : in STD_LOGIC;
            RST : in STD_LOGIC;
            CLK : in STD_LOGIC;
-           OUT : in STD_LOGIC);
+           Outpout : out STD_LOGIC_VECTOR (7 downto 0));
 end BancMemoire;
 
 architecture Behavioral of BancMemoire is
