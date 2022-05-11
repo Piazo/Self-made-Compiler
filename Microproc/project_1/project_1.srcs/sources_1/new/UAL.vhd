@@ -50,7 +50,6 @@ architecture Behavioral of UAL is
         
 begin
 
-
     Aux <= (( X"00"&A) + ( X"00"&B)) when Ctrl_Alu = "00" else
            (( X"00"&A) - ( X"00"&B)) when Ctrl_Alu = "01" else 
            A * B when Ctrl_Alu = "10" else
@@ -61,6 +60,5 @@ begin
     O <= '1' when (Ctrl_Alu = "10" and Aux > X"00FF") else '0';
     Z <= '1' when (Aux = X"0000") else '0';
     C <= '1' when (Ctrl_Alu = "00" and Aux > X"00FF") else '0';
-           
     S <= Aux(7 downto 0);
 end Behavioral;

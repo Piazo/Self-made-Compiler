@@ -3,7 +3,7 @@ Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
 Running: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/bin/unwrapped/lnx64.o/xelab -wto e4d5f827ec484bb0817be971ff4e0413 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot Test_BancMemoireDonnees_behav xil_defaultlib.Test_BancMemoireDonnees -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
-WARNING: [VRFC 10-122] bancmemoiredonnees remains a black-box since it has no binding entity [/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/Test_BancMemoireDonnees.vhd:67]
+WARNING: [VRFC 10-122] bancmemoiredonnees remains a black-box since it has no binding entity [/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/Test_BancMemoireDonnees.vhd:67]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis

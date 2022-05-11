@@ -75,3 +75,18 @@ INFO: [VRFC 10-163] Analyzing VHDL file "/home/alaverdo/Bureau/4IR/ProjSystInfo/
 INFO: [VRFC 10-307] analyzing entity Test_BancMemoireDonnees
 INFO: [VRFC 10-163] Analyzing VHDL file "/home/alaverdo/Bureau/4IR/ProjSystInfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/Test_BancMemoireDonnees.vhd" into library xil_defaultlib
 INFO: [VRFC 10-307] analyzing entity Test_BancMemoireDonnees
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancDeRegistre.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity BancDeRegistre
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/UAL.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity UAL
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancMemoireDonnees.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity BancMemoire
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancMemoireInstructions.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity BancMemoire
+WARNING: [VRFC 10-1193] overwriting existing primary unit bancmemoire [/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sources_1/new/BancMemoireInstructions.vhd:36]
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/test_BancDeRegistre.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity test_BancDeRegistre
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/test_UAL.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity test_UAL
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/lemeille/Bureau/TP_Systeminfo/ProjetSystemeInfo/Microproc/project_1/project_1.srcs/sim_1/new/Test_BancMemoireDonnees.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity Test_BancMemoireDonnees
