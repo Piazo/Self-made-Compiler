@@ -45,6 +45,9 @@ signal CLK : STD_LOGIC := '0';
 constant clock_period : TIME := 10 ns;
 signal IP : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 signal FullInstruct : STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
+signal LC : STD_LOGIC := '0';
+signal RST_Proc : STD_LOGIC := '1';
+signal MUX_BR : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 
     component MemInstruct 
         port(   Adr : in STD_LOGIC_VECTOR (7 downto 0);
@@ -121,18 +124,67 @@ begin
     IP <= IP + 1;
 end process;
 
+process
+begin
+wait until rising_edge(CLK);
 memoire_instructions_16: MemInstruct Port Map (
    Adr => IP,
    CLK => CLK,
    Vect_OUT_Instr => FullInstruct
 );
 
-OP_DI_EX <=  FullInstruct(31 downto 24);
-A_DI_EX <= FullInstruct(24 downto 16);
-B_DI_EX <= FullInstruct(15 downto 8);
-C_DI_EX <= FullInstruct(7 downto 0);
+--Sortie de la memoire des instructions dans la pipeline LI/DI
+OP_LI_DI <=  FullInstruct(31 downto 24);
+A_LI_DI <= FullInstruct(24 downto 16);
+B_LI_DI <= FullInstruct(15 downto 8);
+C_LI_DI <= FullInstruct(7 downto 0);
 
-    
+--Pipeline DI/EX
+A_DI_EX <= A_LI_DI;
+if (OP_LI_DI = X"06") then
+    B_DI_EX <= B_LI_DI; --cas ou on ne passe pas dans le multiplexeur (AFC)
+end if;
+C_DI_EX <= C_LI_DI;
+OP_DI_EX <= OP_LI_DI;
+
+--Pipeline EX/Mem
+A_EX_Mem <= A_DI_EX;
+if (OP_LI_DI = X"06" or OP_LI_DI = X"05") then
+    B_EX_Mem <= B_DI_EX; --cas ou on ne passe pas dans le multiplexeur (AFC, COP)
+end if;
+OP_EX_Mem <= OP_DI_EX;
+
+--Pipeline Mem/RE
+A_Mem_RE <= A_EX_Mem;
+if (OP_LI_DI /= X"07" and OP_LI_DI /= X"08") then
+    B_Mem_RE <= B_EX_Mem; --cas ou on ne passe pas dans le multiplexeur (AFC, COP, ADD, MUL, DIV, SOU)
+end if;
+OP_Mem_RE <= OP_EX_Mem;
+
+if (OP_Mem_RE = X"07" or OP_Mem_RE = X"08") then 
+    LC <= '0'; --cas ou on n'a pas besoin d'écrire (LDR et STR)
+else 
+    LC <='1';
+end if;
+
+
+MUX_BR <= B_LI_DI when OP_LI_DI = X"06";
+
+
+banc_registre : BancRegistre Port Map (
+    A => B_LI_DI (3 downto 0),
+    B => C_LI_DI (3 downto 0),
+    addrW => A_LI_DI (3 downto 0),
+    W => LC,
+    DATA => B_MEM_RE,
+    RST => RST_Proc,
+    CLK => CLK,
+    QA => MUX_BR,
+    QB => C_DI_EX
+);
+
+end process;
+
 end Behavioral;
 
 

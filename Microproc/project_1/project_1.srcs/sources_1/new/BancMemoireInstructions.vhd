@@ -44,6 +44,7 @@ architecture Behavioral of BancMemoire is
     type tabVal is array(0 to 255) of std_logic_vector(31 downto 0);
     signal Registres: tabVal := (others => (31 downto 0 => '0'));
     
+    
 begin
 
 process
