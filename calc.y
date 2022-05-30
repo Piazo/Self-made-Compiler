@@ -7,95 +7,57 @@ int var[26];
 void yyerror(char *s);
 int type = 2;
 %}
-%union { int nb; char var; }
+%union {int nb; char* var; char* type; char* str}
 %token tFL tEGAL tPO tIF tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
-%token <nb> tNB tEXP
+%token <nb> tNB
 %token <var> tID
 %type <nb> Expr 
+%type <type> TypeNb
+
 %start Clio4
 %%
 
-Clio4 : tMAIN tPO tPF Body ;
+Clio4 : tMAIN tPO Parametres tPF Body ;
 
-Body : tOB {incr_profondeur} Section tCB {decrem_profondeur};
+Body : tOB {incr_profondeur} Declarations Instructions tCB {decrem_profondeur};
 
-Section : Expr tEOI Section
-		| Expr tEOI
-		| Expr Section
-		|;
 
-Expr : Declarations
-	| DeclaAffec 
-	| Affectation  
-	| Operation 
-	| Print 
-	| Fun 
-	| If
-	| While
-	| TypeNb;
+Parametres : Parametre
+     	   	| Parametre tVIRG Parametres;
 
-Fun :	TypeVar tID tPO Parametres tPF Body;
+Parametre : TypeNb tID {addsymbol($2);};
 
-Parametres : Declaration tVIRG Parametres
-     	   	| Declaration
-       		|;
+TypeNb : tINT {$$ = $1;};
 
-If : tIF tPO Conditions tPF Body;
+Declarations : Declaration Declarations
+				| ;
 
-While : tWHILE tPO Conditions tPF Body;
+Declaration : TypeNb IDs tEOI
+			| TypeNb tID tEGAL tNB tEOI {addsymbol($2); add_instruc_to_tab("AFC", get_index($2), $4, 0);};
 
-Orand : tOR | tAND;
+IDs : tID {addsymbol($1);}
+	| tID tVIRG tID {addsymbol($1);};
 
-Conditions : Condition Orand Conditions | Orand Conditions | Condition;
-Condition : Comparaison | tID | tNB;
+Instructions : Instruction Instructions
+			| ;
 
-Comparaison : Diff | Infeg | Supeg | Sup | Inf | Condegal;
-Diff : TermeOpe tDIFF TermeOpe;
-Infeg : TermeOpe tINFEG TermeOpe;
-Supeg : TermeOpe tSUPEG TermeOpe;
-Sup : TermeOpe tSUP TermeOpe;
-Inf : TermeOpe tINF TermeOpe;
-Condegal : TermeOpe tCONDEGAL TermeOpe;
+Instruction : Affectation;
 
-TypeVar : tCONST tINT  { type = 1; }
-		| tINT { type = 2; };
 
-TypeNb : tNB 
-		| tEXP;
+Affectation : tID tEGAL Operation tEOI {add_instruc_to_tab("COP", get_index($1), pop_var_tempo(), 0)}
 
-Declarations : TypeVar Declaration Findeclaration;
+Operation : Operation tADD MultDivi {add_ope_to_tab("ADD");}
+			| Operation tSOU MultDivi {add_ope_to_tab("SOU");}
+			| MultDivi;
 
-Declaration : tID {addsymbol($1, type);}
-			| tID {addsymbol($1, type);} tEGAL Expr;
+MultDivi : MultDivi tMUL Terme {add_ope_to_tab("MUL");}
+			| MultDivi tDIV Terme {add_ope_to_tab("DIV");}
+			| Terme;
 
-Findeclaration : tEOI
-				| tVIRG Declaration Findeclaration;
+Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tempo, get_index($1), 0);}
+		| tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, 0);};
 
-DeclaAffec : TypeVar tID {addsymbol($1, type);} tEGAL TypeNb tEOI 
-			| TypeVar tID {addsymbol($1, type);} tEGAL Operation tEOI;
 
-Affectation : tID tEGAL TypeNb tEOI 
-			| tID tEGAL Operation tEOI;
-
-Operation :	Add {select_operator();} 
-			| Sub 
-			| Mul 
-			| Div; /*GERER LES PRIOS D'ADDITION ET MUL*/
-
-Add : TermeOpe tADD TermeOpe;
-
-Sub : TermeOpe tSOU TermeOpe;
-
-Mul : TermeOpe tMUL TermeOpe;
-
-Div : TermeOpe tDIV TermeOpe;
-
-TermeOpe : tPO Operation tPF 
-		| Operation 
-		| tID 
-		| TypeNb;
-
-Print : tPRINT tPO tID tPF;
 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }

@@ -17,13 +17,10 @@ void decrem_profondeur(){
     profondeur--;
 }
 
-void addSymbol (char* NomSymbol, int typevar){
+void addSymbol (char* NomSymbol){
     index++;
-    if (typevar == 1){
-        TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur, .est_une_cst=1};
-    }else{
-        TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur, .est_une_cst=0};
-    }
+    TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur};
+
 }
 
 void delSymbol (){
