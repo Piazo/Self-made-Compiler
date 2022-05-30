@@ -14,6 +14,7 @@ c%{
 "int " { return tINT; }
 "printf" {return tPRINT; }
 "if" { return tIF; }
+"else" { return tELSE; }
 "while" { return tWHILE; }
 
 [0-9]+	{
