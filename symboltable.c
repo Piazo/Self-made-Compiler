@@ -1,12 +1,17 @@
 #include "stdlib.h"
 #include "symboltable.h"
 #include "stdio.h"
+#include <stdbool.h>
+#include <string.h>
+
+
+
 
 #define TABLESIZE 128
 Symbol TableSymbol[TABLESIZE];
 
-int index = -1;
-int type_index = -1
+int index1 = -1;
+int type_index1 = -1;
 int profondeur = 0;
 
 void incr_profondeur(){
@@ -18,37 +23,41 @@ void decrem_profondeur(){
 }
 
 void addSymbol (char* NomSymbol){
-    index++;
-    TableSymbol[index] = {.name = NomSymbol, .type="int", .index = index, .profondeur = profondeur};
-
+    index1++;
+    char* name = (char*) malloc(strlen(NomSymbol));
+    strncpy(name, NomSymbol, strlen(NomSymbol));
+    TableSymbol[index1].name = name;
+    TableSymbol[index1].type = "int";
+    TableSymbol[index1].index1 = index1;
+    TableSymbol[index1].profondeur = profondeur;
 }
 
 void delSymbol (){
-    int profdr = TableSymbol[index].profondeur;
+    int profdr = TableSymbol[index1].profondeur;
     profondeur--;
-    while(index>1 && TableSymbol[index].profondeur == profdr){
-        index--;
+    while(index1>1 && TableSymbol[index1].profondeur == profdr){
+        index1--;
     }
 }
 
 void print_symbol(){
-    for (int i = 0; i<index; i++){
-        printf("Nom : %s, Type : %s, Index : %d, Profondeur : %d, Cst : %d", TableSymbol[i].name,
-            TableSymbol[i].type, TableSymbol[i].index, TableSymbol[i].profondeur, TableSymbol[i].est_une_cst);
+    for (int i = 0; i<index1; i++){
+        printf("Nom : %s, Type : %s, index : %d, Profondeur : %d", TableSymbol[i].name,
+            TableSymbol[i].type, TableSymbol[i].index1, TableSymbol[i].profondeur);
     }
 }
 
 int get_index(char* name){
-    int indextemp = 0;
+    int index1temp = 0;
     bool notfound = true;
-    while (indextemp<index && notfound){
-        if (0 == strcmp(name, TableSymbol[indextemp].name)){
+    while (index1temp<index1 && notfound){
+        if (0 == strcmp(name, TableSymbol[index1temp].name)){
             notfound = false;
         }
     }
     if (notfound) {
         return -1;
     } else {
-        return indextemp;
+        return index1temp;
     }
 }

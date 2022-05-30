@@ -1,4 +1,8 @@
 #include "assembleur.h"
+#include <string.h>
+#include <stdio.h>
+
+
 
 #define MAX_TABLESIZE 2000
 instruction tab_instruction[MAX_TABLESIZE];
@@ -17,13 +21,13 @@ int profondeur_de_else = -1;
 
 
 void add_instruc_to_tab(char* nom_ope, int r0, int r1, int r2){
-    struct instruction new_instr = {nom_ope, r0, r1, r2};
+    instruction new_instr = {nom_ope, r0, r1, r2};
     tab_instruction[index_last_instr_tab] = new_instr;
     index_last_instr_tab++;
 }
 
 
-int get_index (){
+int get_index_last_instr (){
     return index_last_instr_tab;
 }
 
@@ -42,7 +46,7 @@ void add_ope_to_tab(char* ope){
     int OperandeDeGauche = pop_var_tempo();
     int OperandeDeDroite = pop_var_tempo();
     add_instruc_to_tab(ope, OperandeDeGauche, OperandeDeGauche, OperandeDeDroite);
-    push_var_tempo;
+    index_var_tempo++;
 }
 
 
@@ -133,6 +137,6 @@ void interpreter(){
         index_current_instr++;
 
     }*/
-}
+
 
 
