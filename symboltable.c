@@ -14,7 +14,7 @@ void incr_profondeur(){
 }
 
 void decrem_profondeur(){
-    profondeur--;
+    delSymbol();
 }
 
 void addSymbol (char* NomSymbol){
