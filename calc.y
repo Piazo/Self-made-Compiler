@@ -25,19 +25,18 @@ Clio4 : tMAIN tPO Parametres tPF Body
 
 Body : tOB {incr_profondeur();} Declarations Instructions tCB {decrem_profondeur();};
 
-
 Parametres : Parametre
      	   	| Parametre tVIRG Parametres;
 
 Parametre : tINT tID {addSymbol($2);};
 
-Declarations : DeclaraAffec Declarations
+Declarations : Declaration Declarations
 				| ;
 
-DeclaraAffec : tINT UnOuPlusieursID tEOI
+Declaration : tINT IDs tEOI
 			| tINT tID tEGAL tNB tEOI {addSymbol($2); add_instruc_to_tab("AFC", get_index($2), $4, -1);};
 
-UnOuPlusieursID : tID {addSymbol($1);}
+IDs : tID {addSymbol($1);}
 	| tID tVIRG tID {addSymbol($1);};
 
 Instructions : Instruction Instructions

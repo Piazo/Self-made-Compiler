@@ -594,9 +594,9 @@ static const char *const yytname[] =
   "tAND", "tOR", "tWHILE", "tSOU", "tADD", "tDIV", "tMUL", "tERROR",
   "tMAIN", "tCONST", "tINT", "tPRINT", "tOB", "tCB", "tEOI", "tVIRG",
   "tNB", "tID", "$accept", "Clio4", "Body", "$@1", "Parametres",
-  "Parametre", "Declarations", "DeclaraAffec", "UnOuPlusieursID",
-  "Instructions", "Instruction", "$@2", "$@3", "$@4", "$@5", "Else",
-  "Element", "Condition", "Affectation", "Operation", "MultDivi", "Terme", YY_NULLPTR
+  "Parametre", "Declarations", "Declaration", "IDs", "Instructions",
+  "Instruction", "$@2", "$@3", "$@4", "$@5", "Else", "Element",
+  "Condition", "Affectation", "Operation", "MultDivi", "Terme", YY_NULLPTR
 };
 #endif
 
@@ -1447,7 +1447,7 @@ yyreduce:
 
   case 13:
 #line 40 "calc.y"
-                      {addSymbol((yyvsp[0].var));}
+          {addSymbol((yyvsp[0].var));}
 #line 1452 "y.tab.c"
     break;
 

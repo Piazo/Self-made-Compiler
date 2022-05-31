@@ -27,14 +27,14 @@ Grammaire
 
     7 Parametre: tINT tID
 
-    8 Declarations: DeclaraAffec Declarations
+    8 Declarations: Declaration Declarations
     9             | %empty
 
-   10 DeclaraAffec: tINT UnOuPlusieursID tEOI
-   11             | tINT tID tEGAL tNB tEOI
+   10 Declaration: tINT IDs tEOI
+   11            | tINT tID tEGAL tNB tEOI
 
-   12 UnOuPlusieursID: tID
-   13                | tID tVIRG tID
+   12 IDs: tID
+   13    | tID tVIRG tID
 
    14 Instructions: Instruction Instructions
    15             | %empty
@@ -137,10 +137,10 @@ Non-terminaux, suivis des règles où ils apparaissent
     Declarations (39)
         à gauche: 8 9
         à droite: 4 8
-    DeclaraAffec (40)
+    Declaration (40)
         à gauche: 10 11
         à droite: 8
-    UnOuPlusieursID (41)
+    IDs (41)
         à gauche: 12 13
         à droite: 10
     Instructions (42)
@@ -311,7 +311,7 @@ Non-terminaux, suivis des règles où ils apparaissent
     $défaut  réduction par utilisation de la règle 9 (Declarations)
 
     Declarations  aller à l'état 18
-    DeclaraAffec  aller à l'état 19
+    Declaration   aller à l'état 19
 
 
 État 15
@@ -330,12 +330,12 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 17
 
-   10 DeclaraAffec: tINT . UnOuPlusieursID tEOI
-   11             | tINT . tID tEGAL tNB tEOI
+   10 Declaration: tINT . IDs tEOI
+   11            | tINT . tID tEGAL tNB tEOI
 
     tID  décalage et aller à l'état 20
 
-    UnOuPlusieursID  aller à l'état 21
+    IDs  aller à l'état 21
 
 
 État 18
@@ -356,31 +356,31 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 19
 
-    8 Declarations: DeclaraAffec . Declarations
+    8 Declarations: Declaration . Declarations
 
     tINT  décalage et aller à l'état 17
 
     $défaut  réduction par utilisation de la règle 9 (Declarations)
 
     Declarations  aller à l'état 29
-    DeclaraAffec  aller à l'état 19
+    Declaration   aller à l'état 19
 
 
 État 20
 
-   11 DeclaraAffec: tINT tID . tEGAL tNB tEOI
-   12 UnOuPlusieursID: tID .
-   13                | tID . tVIRG tID
+   11 Declaration: tINT tID . tEGAL tNB tEOI
+   12 IDs: tID .
+   13    | tID . tVIRG tID
 
     tEGAL  décalage et aller à l'état 30
     tVIRG  décalage et aller à l'état 31
 
-    $défaut  réduction par utilisation de la règle 12 (UnOuPlusieursID)
+    $défaut  réduction par utilisation de la règle 12 (IDs)
 
 
 État 21
 
-   10 DeclaraAffec: tINT UnOuPlusieursID . tEOI
+   10 Declaration: tINT IDs . tEOI
 
     tEOI  décalage et aller à l'état 32
 
@@ -447,30 +447,30 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 29
 
-    8 Declarations: DeclaraAffec Declarations .
+    8 Declarations: Declaration Declarations .
 
     $défaut  réduction par utilisation de la règle 8 (Declarations)
 
 
 État 30
 
-   11 DeclaraAffec: tINT tID tEGAL . tNB tEOI
+   11 Declaration: tINT tID tEGAL . tNB tEOI
 
     tNB  décalage et aller à l'état 39
 
 
 État 31
 
-   13 UnOuPlusieursID: tID tVIRG . tID
+   13 IDs: tID tVIRG . tID
 
     tID  décalage et aller à l'état 40
 
 
 État 32
 
-   10 DeclaraAffec: tINT UnOuPlusieursID tEOI .
+   10 Declaration: tINT IDs tEOI .
 
-    $défaut  réduction par utilisation de la règle 10 (DeclaraAffec)
+    $défaut  réduction par utilisation de la règle 10 (Declaration)
 
 
 État 33
@@ -529,16 +529,16 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 39
 
-   11 DeclaraAffec: tINT tID tEGAL tNB . tEOI
+   11 Declaration: tINT tID tEGAL tNB . tEOI
 
     tEOI  décalage et aller à l'état 52
 
 
 État 40
 
-   13 UnOuPlusieursID: tID tVIRG tID .
+   13 IDs: tID tVIRG tID .
 
-    $défaut  réduction par utilisation de la règle 13 (UnOuPlusieursID)
+    $défaut  réduction par utilisation de la règle 13 (IDs)
 
 
 État 41
@@ -640,9 +640,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 52
 
-   11 DeclaraAffec: tINT tID tEGAL tNB tEOI .
+   11 Declaration: tINT tID tEGAL tNB tEOI .
 
-    $défaut  réduction par utilisation de la règle 11 (DeclaraAffec)
+    $défaut  réduction par utilisation de la règle 11 (Declaration)
 
 
 État 53
