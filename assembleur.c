@@ -6,7 +6,7 @@
 
 #define MAX_TABLESIZE 2000
 instruction tab_instruction[MAX_TABLESIZE];
-int registre[256];
+int registre[1024];
 int tab_while[16];
 int tab_cond_if[16];
 int tab_cond_else[16];
@@ -93,50 +93,64 @@ void remove_jmp(){
 
 void print_instruction_table(){
     FILE* as;
-    FILE* asm_hexa;
     as = fopen("./output_asm/asm", "w+");
-    asm_hexa = fopen("./output_asm/asm_hexa", "w+");
     for (int i = 0; i < index_last_instr_tab; i++){
         printf("Operation = %s, R0 = %d, R1 = %d, R2 = %d", tab_instruction[i].operation, tab_instruction[i].r0, tab_instruction[i].r1, tab_instruction[i].r2);
         fprintf(as, "%s ", tab_instruction[i].operation);
         fprintf(as, "\n");
-        fprintf(asm_hexa, "\n");
     }
 }
 
 
 
-/*
+
 void interpreter(){
     while(index_current_instr < index_last_instr_tab){
-        char operator[5],
+        char operator[5];
         strcpy(operator, tab_instruction[index_current_instr].operation);
-        int r0 = tab_inter[index_current_instr].r0;
-		int r1 = tab_inter[index_current_instr].r1;
-		int r2 = tab_inter[index_current_instr].r2;
+        int r0 = tab_instruction[index_current_instr].r0;
+		int r1 = tab_instruction[index_current_instr].r1;
+		int r2 = tab_instruction[index_current_instr].r2;
 
-        if (!strcmp(op, "ADD")) {
+        if (!strcmp(operator, "ADD")) {
 			registre[r0] = registre[r1] + registre[r2];
         }
-        else if (!strcmp(op, "MUL")) {
+        else if (!strcmp(operator, "MUL")) {
 			registre[r0] = registre[r2] * registre[r1];
 		}
-        else if (!strcmp(op, "SOU")) {
+        else if (!strcmp(operator, "SOU")) {
 			registre[r0] = registre[r2] - registre[r1];
 		}
-        else if (!strcmp(op, "DIV")) {
+        else if (!strcmp(operator, "DIV")) {
 			registre[r0] = registre[r2] / registre[r1];
 		}
-        else if (!strcmp(op, "COP")) {
+        else if (!strcmp(operator, "COP")) {
 			registre[r0] = registre[r1];
 		}
-        else if (!strcmp(op, "AFC")) {
+        else if (!strcmp(operator, "AFC")) {
 			registre[r0] = r1;
 		}
-
+        else if(!strcmp(operator, "JMP")) {
+            //A faire
+        } 
+        else if(!strcmp(operator, "JMF")) {
+            //A faire
+        } 
+        else if(!strcmp(operator, "PRI")) {
+            printf("ZZZZZZZZZZAAAAAZEZAZDA%d\n", registre[r0]);
+        }
+        else if(!strcmp(operator, "EQU")) {
+            registre[r0] = registre[r1] == registre[r2];
+        } 
+        else if(!strcmp(operator, "INF")) {
+            registre[r0] = registre[r1] < registre[r2];
+        } 
+        else if(!strcmp(operator, "SUP")) {
+            registre[r0] = registre[r1] > registre[r2];
+        } 
         index_current_instr++;
-
-    }*/
+    }
+} 
 
 
 

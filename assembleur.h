@@ -32,4 +32,6 @@ void remove_jmp();
 
 void print_instruction_table();
 
+void interpreter();
+
 #endif

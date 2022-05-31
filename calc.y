@@ -3,10 +3,14 @@
 #include <stdio.h>
 #include "symboltable.h"
 #include "assembleur.h"
+#include <string.h>
+
 int var[26];
 void yyerror(char *s);
 int type = 2;
+extern FILE * yyin;
 %}
+
 %union {int nb; char* var; char* type; char* str}
 %token tFL tEGAL tPO tIF tPF tELSE tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tAND tOR tWHILE tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
 %token <nb> tNB
@@ -16,7 +20,8 @@ int type = 2;
 %start Clio4
 %%
 
-Clio4 : tMAIN tPO Parametres tPF Body {print_instruction_table();} ;
+Clio4 : tMAIN tPO Parametres tPF Body
+	| tMAIN tPO tPF Body;	
 
 Body : tOB {incr_profondeur();} Declarations Instructions tCB {decrem_profondeur();};
 
@@ -26,13 +31,13 @@ Parametres : Parametre
 
 Parametre : tINT tID {addSymbol($2);};
 
-Declarations : Declaration Declarations
+Declarations : DeclaraAffec Declarations
 				| ;
 
-Declaration : tINT IDs tEOI
+DeclaraAffec : tINT UnOuPlusieursID tEOI
 			| tINT tID tEGAL tNB tEOI {addSymbol($2); add_instruc_to_tab("AFC", get_index($2), $4, -1);};
 
-IDs : tID {addSymbol($1);}
+UnOuPlusieursID : tID {addSymbol($1);}
 	| tID tVIRG tID {addSymbol($1);};
 
 Instructions : Instruction Instructions
@@ -75,9 +80,22 @@ Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tem
 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
-int main(void) {
+int main(int argc, char** argv) {
 	printf("Projet Systeme Info\n");
 	yydebug=1;
-	yyparse();
+	if(argc != 2) { 
+		fprintf(stderr, "Usage: %s <input file>\n", argv[0]); 
+		exit(1); 
+		} 
+	FILE *f = fopen(argv[1], "r"); 
+	if(f == NULL) { 
+		fprintf(stderr, "Failed to open file \"%s\".\n", argv[1]); 
+		exit(1); 
+	} 
+	yyin = f; 
+	yyparse(); 
+	interpreter();
+	print_instruction_table();
+	fclose(f);
 	return 0;
 }

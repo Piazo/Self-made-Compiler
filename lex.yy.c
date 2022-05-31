@@ -814,7 +814,7 @@ case 9:
 YY_RULE_SETUP
 #line 20 "calc.l"
 {
-	  yylval.nb = atoi(yytext);
+	  yylval.nb = atoi(strdup(yytext));
 	  return tNB;
 	}
 	YY_BREAK
@@ -822,7 +822,7 @@ case 10:
 YY_RULE_SETUP
 #line 25 "calc.l"
 {
-	yylval.nb = (int)strtold(yytext, NULL);
+	yylval.nb = (int)strtold(strdup(yytext), NULL);
 	return tNB;
 }
 	YY_BREAK
@@ -925,7 +925,7 @@ case 30:
 YY_RULE_SETUP
 #line 49 "calc.l"
 {
-	  yylval.var = yytext[0];
+	  yylval.var = strdup(yytext);
 	  return tID;
 	}
 	YY_BREAK

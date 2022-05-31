@@ -54,6 +54,7 @@ int get_index(char* name){
         if (0 == strcmp(name, TableSymbol[index1temp].name)){
             notfound = false;
         }
+        index1temp++;
     }
     if (notfound) {
         return -1;

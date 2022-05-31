@@ -1,1 +1,5 @@
-main(int a){int a = 5;}
+main(){
+    int b=1;
+    int a = 5;
+    int ze = a + b;
+}
