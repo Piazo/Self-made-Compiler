@@ -20,10 +20,11 @@ int profondeur_de_if = -1;
 int profondeur_de_else = -1;
 
 
-void add_instruc_to_tab(char* nom_ope, int r0, int r1, int r2){
+int add_instruc_to_tab(char* nom_ope, int r0, int r1, int r2){
     instruction new_instr = {nom_ope, r0, r1, r2};
     tab_instruction[index_last_instr_tab] = new_instr;
     index_last_instr_tab++;
+    return (index_last_instr_tab-1);
 }
 
 
@@ -31,6 +32,13 @@ int get_index_last_instr (){
     return index_last_instr_tab;
 }
 
+void patchJMF(int adrJMF, int newDestination){
+    tab_instruction[adrJMF].r1 = newDestination;
+}
+
+void patchJMP(int adrJMP, int newDestination){
+    tab_instruction[adrJMP].r0 = newDestination;
+}
 
 int push_var_tempo(){
     index_var_tempo++;
@@ -49,35 +57,6 @@ void add_ope_to_tab(char* ope){
     index_var_tempo++;
 }
 
-
-void push_while(){
-    profondeur_de_while++;
-    tab_while[profondeur_de_while] = index_last_instr_tab;
-}
-void pop_while(){
-    add_instruc_to_tab("JMP", tab_while[profondeur_de_while]+1, -1, -1);
-    profondeur_de_while--;
-}
-
-
-void push_cond_if(){
-    profondeur_de_if++;
-    tab_cond_if[profondeur_de_if] = index_last_instr_tab;
-}
-void pop_cond_if(){
-    tab_instruction[tab_cond_if[profondeur_de_if]].r1 = index_last_instr_tab+1;
-    profondeur_de_if--;
-}
-
-void push_cond_else(){
-    profondeur_de_else++;
-    tab_cond_else[profondeur_de_else] = index_last_instr_tab;
-}
-void pop_cond_else(){
-    tab_instruction[tab_cond_else[profondeur_de_else]].r0 = index_last_instr_tab+1;
-    profondeur_de_else--;
-}
-
 void remove_jmp(){
     index_last_instr_tab--;
     for(int i=0; i <= index_last_instr_tab; i++){
@@ -93,9 +72,8 @@ void remove_jmp(){
 
 void print_instruction_table(){
     FILE* as;
-    as = fopen("./output_asm.asm", "w");
+    as = fopen("./Print_Instruction_Table", "w+");
     for (int i = 0; i < index_last_instr_tab; i++){
-        printf("Operation = %s, R0 = %d, R1 = %d, R2 = %d", tab_instruction[i].operation, tab_instruction[i].r0, tab_instruction[i].r1, tab_instruction[i].r2);
         fprintf(as, "%s ", tab_instruction[i].operation);
         fprintf(as, "\n");
     }
@@ -103,7 +81,7 @@ void print_instruction_table(){
 
 
 
-/*
+
 void interpreter(){
     while(index_current_instr < index_last_instr_tab){
         char operator[5];
@@ -131,13 +109,15 @@ void interpreter(){
 			registre[r0] = r1;
 		}
         else if(!strcmp(operator, "JMP")) {
-            //A faire
+            index_current_instr = tab_instruction[index_current_instr].r0;
         } 
         else if(!strcmp(operator, "JMF")) {
-            //A faire
+            if(tab_instruction[index_current_instr].r0 == 0){
+                index_current_instr = tab_instruction[index_current_instr].r1;
+            }
         } 
         else if(!strcmp(operator, "PRI")) {
-            printf("ZZZZZZZZZZAAAAAZEZAZDA%d\n", registre[r0]);
+            printf("Valeur = %d\n", registre[r0]);
         }
         else if(!strcmp(operator, "EQU")) {
             registre[r0] = registre[r1] == registre[r2];
@@ -152,6 +132,3 @@ void interpreter(){
     }
 } 
 
-
-
-*/

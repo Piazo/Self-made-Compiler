@@ -57,38 +57,40 @@ Grammaire
 
    22 $@3: %empty
 
-   23 Instruction: tIF tPO Condition tPF $@2 Body $@3 Else
+   23 $@4: %empty
 
-   24 $@4: %empty
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 Else tOB $@4 tCB
 
    25 $@5: %empty
 
-   26 Instruction: tWHILE $@4 tPO Condition tPF $@5 Body
-   27            | tPRINT tPO Element tPF tEOI
+   26 $@6: %empty
 
-   28 Else: tELSE Body
-   29     | %empty
+   27 Instruction: tWHILE $@5 tPO Condition tPF tOB $@6 Body tCB
+   28            | tPRINT tPO Element tPF tEOI
 
-   30 Element: tNB
-   31        | tID
+   29 Else: tELSE Body
+   30     | %empty
 
-   32 Condition: Element tEGAL tEGAL Element
-   33          | Element tINF Element
-   34          | Element tSUP Element
-   35          | Element
+   31 Element: tNB
+   32        | tID
 
-   36 Affectation: tID tEGAL Operation tEOI
+   33 Condition: Element tEGAL tEGAL Element
+   34          | Element tINF Element
+   35          | Element tSUP Element
+   36          | Element
 
-   37 Operation: Operation tADD MultDivi
-   38          | Operation tSOU MultDivi
-   39          | MultDivi
+   37 Affectation: tID tEGAL Operation tEOI
 
-   40 MultDivi: MultDivi tMUL Terme
-   41         | MultDivi tDIV Terme
-   42         | Terme
+   38 Operation: Operation tADD MultDivi
+   39          | Operation tSOU MultDivi
+   40          | MultDivi
 
-   43 Terme: tID
-   44      | tNB
+   41 MultDivi: MultDivi tMUL Terme
+   42         | MultDivi tDIV Terme
+   43         | Terme
+
+   44 Terme: tID
+   45      | tNB
 
 
 Terminaux, suivis des règles où ils apparaissent
@@ -96,35 +98,35 @@ Terminaux, suivis des règles où ils apparaissent
     $end (0) 0
     error (256)
     tFL (258)
-    tEGAL (259) 15 32 36
-    tPO (260) 1 2 23 26 27
-    tIF (261) 23
-    tPF (262) 1 2 23 26 27
-    tELSE (263) 28
+    tEGAL (259) 15 33 37
+    tPO (260) 1 2 24 27 28
+    tIF (261) 24
+    tPF (262) 1 2 24 27 28
+    tELSE (263) 29
     tCONDEGAL (264)
     tDIFF (265)
-    tSUP (266) 34
-    tINF (267) 33
+    tSUP (266) 35
+    tINF (267) 34
     tSUPEG (268)
     tINFEG (269)
     tAND (270)
     tOR (271)
-    tWHILE (272) 26
-    tSOU (273) 38
-    tADD (274) 37
-    tDIV (275) 41
-    tMUL (276) 40
+    tWHILE (272) 27
+    tSOU (273) 39
+    tADD (274) 38
+    tDIV (275) 42
+    tMUL (276) 41
     tERROR (277)
     tMAIN (278) 1 2
     tCONST (279)
     tINT (280) 11 14 15
-    tPRINT (281) 27
-    tOB (282) 4
-    tCB (283) 4
-    tEOI (284) 14 15 27 36
+    tPRINT (281) 28
+    tOB (282) 4 24 27
+    tCB (283) 4 24 27
+    tEOI (284) 14 15 28 37
     tVIRG (285) 10 17
-    tNB <nb> (286) 15 30 44
-    tID <var> (287) 11 15 16 17 31 36 43
+    tNB <nb> (286) 15 31 45
+    tID <var> (287) 11 15 16 17 32 37 44
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -136,7 +138,7 @@ Non-terminaux, suivis des règles où ils apparaissent
         à droite: 0
     Body (35)
         à gauche: 4
-        à droite: 1 2 23 26 28
+        à droite: 1 2 24 27 29
     $@1 (36)
         à gauche: 3
         à droite: 4
@@ -165,41 +167,44 @@ Non-terminaux, suivis des règles où ils apparaissent
         à gauche: 18 19
         à droite: 8 18
     Instruction (45)
-        à gauche: 20 23 26 27
+        à gauche: 20 24 27 28
         à droite: 18
     $@2 (46)
         à gauche: 21
-        à droite: 23
+        à droite: 24
     $@3 (47)
         à gauche: 22
-        à droite: 23
+        à droite: 24
     $@4 (48)
-        à gauche: 24
-        à droite: 26
+        à gauche: 23
+        à droite: 24
     $@5 (49)
         à gauche: 25
-        à droite: 26
-    Else (50)
-        à gauche: 28 29
-        à droite: 23
-    Element <nb> (51)
-        à gauche: 30 31
-        à droite: 27 32 33 34 35
-    Condition <nb> (52)
-        à gauche: 32 33 34 35
-        à droite: 23 26
-    Affectation (53)
-        à gauche: 36
+        à droite: 27
+    $@6 (50)
+        à gauche: 26
+        à droite: 27
+    Else (51)
+        à gauche: 29 30
+        à droite: 24
+    Element <nb> (52)
+        à gauche: 31 32
+        à droite: 28 33 34 35 36
+    Condition <nb> (53)
+        à gauche: 33 34 35 36
+        à droite: 24 27
+    Affectation (54)
+        à gauche: 37
         à droite: 20
-    Operation (54)
-        à gauche: 37 38 39
-        à droite: 36 37 38
-    MultDivi (55)
-        à gauche: 40 41 42
-        à droite: 37 38 39 40 41
-    Terme (56)
-        à gauche: 43 44
-        à droite: 40 41 42
+    Operation (55)
+        à gauche: 38 39 40
+        à droite: 37 38 39
+    MultDivi (56)
+        à gauche: 41 42 43
+        à droite: 38 39 40 41 42
+    Terme (57)
+        à gauche: 44 45
+        à droite: 41 42 43
 
 
 État 0
@@ -370,18 +375,18 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 17
 
-   23 Instruction: tIF . tPO Condition tPF $@2 Body $@3 Else
+   24 Instruction: tIF . tPO Condition tPF tOB $@2 Body tCB $@3 Else tOB $@4 tCB
 
     tPO  décalage et aller à l'état 29
 
 
 État 18
 
-   26 Instruction: tWHILE . $@4 tPO Condition tPF $@5 Body
+   27 Instruction: tWHILE . $@5 tPO Condition tPF tOB $@6 Body tCB
 
-    $défaut  réduction par utilisation de la règle 24 ($@4)
+    $défaut  réduction par utilisation de la règle 25 ($@5)
 
-    $@4  aller à l'état 30
+    $@5  aller à l'état 30
 
 
 État 19
@@ -396,14 +401,14 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 20
 
-   27 Instruction: tPRINT . tPO Element tPF tEOI
+   28 Instruction: tPRINT . tPO Element tPF tEOI
 
     tPO  décalage et aller à l'état 33
 
 
 État 21
 
-   36 Affectation: tID . tEGAL Operation tEOI
+   37 Affectation: tID . tEGAL Operation tEOI
 
     tEGAL  décalage et aller à l'état 34
 
@@ -505,7 +510,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 29
 
-   23 Instruction: tIF tPO . Condition tPF $@2 Body $@3 Else
+   24 Instruction: tIF tPO . Condition tPF tOB $@2 Body tCB $@3 Else tOB $@4 tCB
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -516,7 +521,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 30
 
-   26 Instruction: tWHILE $@4 . tPO Condition tPF $@5 Body
+   27 Instruction: tWHILE $@5 . tPO Condition tPF tOB $@6 Body tCB
 
     tPO  décalage et aller à l'état 43
 
@@ -542,7 +547,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 33
 
-   27 Instruction: tPRINT tPO . Element tPF tEOI
+   28 Instruction: tPRINT tPO . Element tPF tEOI
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -552,7 +557,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 34
 
-   36 Affectation: tID tEGAL . Operation tEOI
+   37 Affectation: tID tEGAL . Operation tEOI
 
     tNB  décalage et aller à l'état 48
     tID  décalage et aller à l'état 49
@@ -592,42 +597,42 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 39
 
-   30 Element: tNB .
-
-    $défaut  réduction par utilisation de la règle 30 (Element)
-
-
-État 40
-
-   31 Element: tID .
+   31 Element: tNB .
 
     $défaut  réduction par utilisation de la règle 31 (Element)
 
 
+État 40
+
+   32 Element: tID .
+
+    $défaut  réduction par utilisation de la règle 32 (Element)
+
+
 État 41
 
-   32 Condition: Element . tEGAL tEGAL Element
-   33          | Element . tINF Element
-   34          | Element . tSUP Element
-   35          | Element .
+   33 Condition: Element . tEGAL tEGAL Element
+   34          | Element . tINF Element
+   35          | Element . tSUP Element
+   36          | Element .
 
     tEGAL  décalage et aller à l'état 53
     tSUP   décalage et aller à l'état 54
     tINF   décalage et aller à l'état 55
 
-    $défaut  réduction par utilisation de la règle 35 (Condition)
+    $défaut  réduction par utilisation de la règle 36 (Condition)
 
 
 État 42
 
-   23 Instruction: tIF tPO Condition . tPF $@2 Body $@3 Else
+   24 Instruction: tIF tPO Condition . tPF tOB $@2 Body tCB $@3 Else tOB $@4 tCB
 
     tPF  décalage et aller à l'état 56
 
 
 État 43
 
-   26 Instruction: tWHILE $@4 tPO . Condition tPF $@5 Body
+   27 Instruction: tWHILE $@5 tPO . Condition tPF tOB $@6 Body tCB
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -659,30 +664,30 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 47
 
-   27 Instruction: tPRINT tPO Element . tPF tEOI
+   28 Instruction: tPRINT tPO Element . tPF tEOI
 
     tPF  décalage et aller à l'état 60
 
 
 État 48
 
-   44 Terme: tNB .
+   45 Terme: tNB .
 
-    $défaut  réduction par utilisation de la règle 44 (Terme)
+    $défaut  réduction par utilisation de la règle 45 (Terme)
 
 
 État 49
 
-   43 Terme: tID .
+   44 Terme: tID .
 
-    $défaut  réduction par utilisation de la règle 43 (Terme)
+    $défaut  réduction par utilisation de la règle 44 (Terme)
 
 
 État 50
 
-   36 Affectation: tID tEGAL Operation . tEOI
-   37 Operation: Operation . tADD MultDivi
-   38          | Operation . tSOU MultDivi
+   37 Affectation: tID tEGAL Operation . tEOI
+   38 Operation: Operation . tADD MultDivi
+   39          | Operation . tSOU MultDivi
 
     tSOU  décalage et aller à l'état 61
     tADD  décalage et aller à l'état 62
@@ -691,33 +696,33 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 51
 
-   39 Operation: MultDivi .
-   40 MultDivi: MultDivi . tMUL Terme
-   41         | MultDivi . tDIV Terme
+   40 Operation: MultDivi .
+   41 MultDivi: MultDivi . tMUL Terme
+   42         | MultDivi . tDIV Terme
 
     tDIV  décalage et aller à l'état 64
     tMUL  décalage et aller à l'état 65
 
-    $défaut  réduction par utilisation de la règle 39 (Operation)
+    $défaut  réduction par utilisation de la règle 40 (Operation)
 
 
 État 52
 
-   42 MultDivi: Terme .
+   43 MultDivi: Terme .
 
-    $défaut  réduction par utilisation de la règle 42 (MultDivi)
+    $défaut  réduction par utilisation de la règle 43 (MultDivi)
 
 
 État 53
 
-   32 Condition: Element tEGAL . tEGAL Element
+   33 Condition: Element tEGAL . tEGAL Element
 
     tEGAL  décalage et aller à l'état 66
 
 
 État 54
 
-   34 Condition: Element tSUP . Element
+   35 Condition: Element tSUP . Element
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -727,7 +732,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 55
 
-   33 Condition: Element tINF . Element
+   34 Condition: Element tINF . Element
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -737,16 +742,14 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 56
 
-   23 Instruction: tIF tPO Condition tPF . $@2 Body $@3 Else
+   24 Instruction: tIF tPO Condition tPF . tOB $@2 Body tCB $@3 Else tOB $@4 tCB
 
-    $défaut  réduction par utilisation de la règle 21 ($@2)
-
-    $@2  aller à l'état 69
+    tOB  décalage et aller à l'état 69
 
 
 État 57
 
-   26 Instruction: tWHILE $@4 tPO Condition . tPF $@5 Body
+   27 Instruction: tWHILE $@5 tPO Condition . tPF tOB $@6 Body tCB
 
     tPF  décalage et aller à l'état 70
 
@@ -767,14 +770,14 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 60
 
-   27 Instruction: tPRINT tPO Element tPF . tEOI
+   28 Instruction: tPRINT tPO Element tPF . tEOI
 
     tEOI  décalage et aller à l'état 72
 
 
 État 61
 
-   38 Operation: Operation tSOU . MultDivi
+   39 Operation: Operation tSOU . MultDivi
 
     tNB  décalage et aller à l'état 48
     tID  décalage et aller à l'état 49
@@ -785,7 +788,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 62
 
-   37 Operation: Operation tADD . MultDivi
+   38 Operation: Operation tADD . MultDivi
 
     tNB  décalage et aller à l'état 48
     tID  décalage et aller à l'état 49
@@ -796,14 +799,14 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 63
 
-   36 Affectation: tID tEGAL Operation tEOI .
+   37 Affectation: tID tEGAL Operation tEOI .
 
-    $défaut  réduction par utilisation de la règle 36 (Affectation)
+    $défaut  réduction par utilisation de la règle 37 (Affectation)
 
 
 État 64
 
-   41 MultDivi: MultDivi tDIV . Terme
+   42 MultDivi: MultDivi tDIV . Terme
 
     tNB  décalage et aller à l'état 48
     tID  décalage et aller à l'état 49
@@ -813,7 +816,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 65
 
-   40 MultDivi: MultDivi tMUL . Terme
+   41 MultDivi: MultDivi tMUL . Terme
 
     tNB  décalage et aller à l'état 48
     tID  décalage et aller à l'état 49
@@ -823,7 +826,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 66
 
-   32 Condition: Element tEGAL tEGAL . Element
+   33 Condition: Element tEGAL tEGAL . Element
 
     tNB  décalage et aller à l'état 39
     tID  décalage et aller à l'état 40
@@ -833,34 +836,32 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 67
 
-   34 Condition: Element tSUP Element .
+   35 Condition: Element tSUP Element .
 
-    $défaut  réduction par utilisation de la règle 34 (Condition)
+    $défaut  réduction par utilisation de la règle 35 (Condition)
 
 
 État 68
 
-   33 Condition: Element tINF Element .
+   34 Condition: Element tINF Element .
 
-    $défaut  réduction par utilisation de la règle 33 (Condition)
+    $défaut  réduction par utilisation de la règle 34 (Condition)
 
 
 État 69
 
-   23 Instruction: tIF tPO Condition tPF $@2 . Body $@3 Else
+   24 Instruction: tIF tPO Condition tPF tOB . $@2 Body tCB $@3 Else tOB $@4 tCB
 
-    tOB  décalage et aller à l'état 9
+    $défaut  réduction par utilisation de la règle 21 ($@2)
 
-    Body  aller à l'état 78
+    $@2  aller à l'état 78
 
 
 État 70
 
-   26 Instruction: tWHILE $@4 tPO Condition tPF . $@5 Body
+   27 Instruction: tWHILE $@5 tPO Condition tPF . tOB $@6 Body tCB
 
-    $défaut  réduction par utilisation de la règle 25 ($@5)
-
-    $@5  aller à l'état 79
+    tOB  décalage et aller à l'état 79
 
 
 État 71
@@ -872,16 +873,28 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 72
 
-   27 Instruction: tPRINT tPO Element tPF tEOI .
+   28 Instruction: tPRINT tPO Element tPF tEOI .
 
-    $défaut  réduction par utilisation de la règle 27 (Instruction)
+    $défaut  réduction par utilisation de la règle 28 (Instruction)
 
 
 État 73
 
-   38 Operation: Operation tSOU MultDivi .
-   40 MultDivi: MultDivi . tMUL Terme
-   41         | MultDivi . tDIV Terme
+   39 Operation: Operation tSOU MultDivi .
+   41 MultDivi: MultDivi . tMUL Terme
+   42         | MultDivi . tDIV Terme
+
+    tDIV  décalage et aller à l'état 64
+    tMUL  décalage et aller à l'état 65
+
+    $défaut  réduction par utilisation de la règle 39 (Operation)
+
+
+État 74
+
+   38 Operation: Operation tADD MultDivi .
+   41 MultDivi: MultDivi . tMUL Terme
+   42         | MultDivi . tDIV Terme
 
     tDIV  décalage et aller à l'état 64
     tMUL  décalage et aller à l'état 65
@@ -889,93 +902,136 @@ Non-terminaux, suivis des règles où ils apparaissent
     $défaut  réduction par utilisation de la règle 38 (Operation)
 
 
-État 74
-
-   37 Operation: Operation tADD MultDivi .
-   40 MultDivi: MultDivi . tMUL Terme
-   41         | MultDivi . tDIV Terme
-
-    tDIV  décalage et aller à l'état 64
-    tMUL  décalage et aller à l'état 65
-
-    $défaut  réduction par utilisation de la règle 37 (Operation)
-
-
 État 75
 
-   41 MultDivi: MultDivi tDIV Terme .
+   42 MultDivi: MultDivi tDIV Terme .
 
-    $défaut  réduction par utilisation de la règle 41 (MultDivi)
+    $défaut  réduction par utilisation de la règle 42 (MultDivi)
 
 
 État 76
 
-   40 MultDivi: MultDivi tMUL Terme .
+   41 MultDivi: MultDivi tMUL Terme .
 
-    $défaut  réduction par utilisation de la règle 40 (MultDivi)
+    $défaut  réduction par utilisation de la règle 41 (MultDivi)
 
 
 État 77
 
-   32 Condition: Element tEGAL tEGAL Element .
+   33 Condition: Element tEGAL tEGAL Element .
 
-    $défaut  réduction par utilisation de la règle 32 (Condition)
+    $défaut  réduction par utilisation de la règle 33 (Condition)
 
 
 État 78
 
-   23 Instruction: tIF tPO Condition tPF $@2 Body . $@3 Else
+   24 Instruction: tIF tPO Condition tPF tOB $@2 . Body tCB $@3 Else tOB $@4 tCB
 
-    $défaut  réduction par utilisation de la règle 22 ($@3)
+    tOB  décalage et aller à l'état 9
 
-    $@3  aller à l'état 80
+    Body  aller à l'état 80
 
 
 État 79
 
-   26 Instruction: tWHILE $@4 tPO Condition tPF $@5 . Body
+   27 Instruction: tWHILE $@5 tPO Condition tPF tOB . $@6 Body tCB
 
-    tOB  décalage et aller à l'état 9
+    $défaut  réduction par utilisation de la règle 26 ($@6)
 
-    Body  aller à l'état 81
+    $@6  aller à l'état 81
 
 
 État 80
 
-   23 Instruction: tIF tPO Condition tPF $@2 Body $@3 . Else
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body . tCB $@3 Else tOB $@4 tCB
 
-    tELSE  décalage et aller à l'état 82
-
-    $défaut  réduction par utilisation de la règle 29 (Else)
-
-    Else  aller à l'état 83
+    tCB  décalage et aller à l'état 82
 
 
 État 81
 
-   26 Instruction: tWHILE $@4 tPO Condition tPF $@5 Body .
+   27 Instruction: tWHILE $@5 tPO Condition tPF tOB $@6 . Body tCB
 
-    $défaut  réduction par utilisation de la règle 26 (Instruction)
+    tOB  décalage et aller à l'état 9
+
+    Body  aller à l'état 83
 
 
 État 82
 
-   28 Else: tELSE . Body
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB . $@3 Else tOB $@4 tCB
 
-    tOB  décalage et aller à l'état 9
+    $défaut  réduction par utilisation de la règle 22 ($@3)
 
-    Body  aller à l'état 84
+    $@3  aller à l'état 84
 
 
 État 83
 
-   23 Instruction: tIF tPO Condition tPF $@2 Body $@3 Else .
+   27 Instruction: tWHILE $@5 tPO Condition tPF tOB $@6 Body . tCB
 
-    $défaut  réduction par utilisation de la règle 23 (Instruction)
+    tCB  décalage et aller à l'état 85
 
 
 État 84
 
-   28 Else: tELSE Body .
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 . Else tOB $@4 tCB
 
-    $défaut  réduction par utilisation de la règle 28 (Else)
+    tELSE  décalage et aller à l'état 86
+
+    $défaut  réduction par utilisation de la règle 30 (Else)
+
+    Else  aller à l'état 87
+
+
+État 85
+
+   27 Instruction: tWHILE $@5 tPO Condition tPF tOB $@6 Body tCB .
+
+    $défaut  réduction par utilisation de la règle 27 (Instruction)
+
+
+État 86
+
+   29 Else: tELSE . Body
+
+    tOB  décalage et aller à l'état 9
+
+    Body  aller à l'état 88
+
+
+État 87
+
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 Else . tOB $@4 tCB
+
+    tOB  décalage et aller à l'état 89
+
+
+État 88
+
+   29 Else: tELSE Body .
+
+    $défaut  réduction par utilisation de la règle 29 (Else)
+
+
+État 89
+
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 Else tOB . $@4 tCB
+
+    $défaut  réduction par utilisation de la règle 23 ($@4)
+
+    $@4  aller à l'état 90
+
+
+État 90
+
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 Else tOB $@4 . tCB
+
+    tCB  décalage et aller à l'état 91
+
+
+État 91
+
+   24 Instruction: tIF tPO Condition tPF tOB $@2 Body tCB $@3 Else tOB $@4 tCB .
+
+    $défaut  réduction par utilisation de la règle 24 (Instruction)

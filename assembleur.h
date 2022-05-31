@@ -34,4 +34,7 @@ void print_instruction_table();
 
 void interpreter();
 
+void patchJMF(int adrJMF, int newDestination);
+void patchJMP(int adrJMP, int newDestination); 
+
 #endif
