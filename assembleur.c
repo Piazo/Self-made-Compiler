@@ -93,7 +93,7 @@ void remove_jmp(){
 
 void print_instruction_table(){
     FILE* as;
-    as = fopen("./output_asm/asm", "w+");
+    as = fopen("./output_asm.asm", "w");
     for (int i = 0; i < index_last_instr_tab; i++){
         printf("Operation = %s, R0 = %d, R1 = %d, R2 = %d", tab_instruction[i].operation, tab_instruction[i].r0, tab_instruction[i].r1, tab_instruction[i].r2);
         fprintf(as, "%s ", tab_instruction[i].operation);
@@ -103,7 +103,7 @@ void print_instruction_table(){
 
 
 
-
+/*
 void interpreter(){
     while(index_current_instr < index_last_instr_tab){
         char operator[5];
@@ -154,3 +154,4 @@ void interpreter(){
 
 
 
+*/

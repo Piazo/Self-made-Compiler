@@ -23,7 +23,11 @@ extern FILE * yyin;
 Clio4 : tMAIN tPO Parametres tPF Body
 	| tMAIN tPO tPF Body;	
 
-Body : tOB {incr_profondeur();} Declarations Instructions tCB {decrem_profondeur();};
+Body : tOB {incr_profondeur();} DeclaInstrs tCB {decrem_profondeur();};
+
+DeclaInstrs : DeclaInstr DeclaInstrs | ;
+
+DeclaInstr : Declarations | Instructions
 
 Parametres : Parametre
      	   	| Parametre tVIRG Parametres;
@@ -93,7 +97,6 @@ int main(int argc, char** argv) {
 	} 
 	yyin = f; 
 	yyparse(); 
-	interpreter();
 	print_instruction_table();
 	fclose(f);
 	return 0;

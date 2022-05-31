@@ -10,7 +10,7 @@
 #define TABLESIZE 128
 Symbol TableSymbol[TABLESIZE];
 
-int index1 = -1;
+int index1 = 0;
 int type_index1 = -1;
 int profondeur = 0;
 
@@ -23,13 +23,13 @@ void decrem_profondeur(){
 }
 
 void addSymbol (char* NomSymbol){
-    index1++;
     char* name = (char*) malloc(strlen(NomSymbol));
     strncpy(name, NomSymbol, strlen(NomSymbol));
     TableSymbol[index1].name = name;
     TableSymbol[index1].type = "int";
     TableSymbol[index1].index1 = index1;
     TableSymbol[index1].profondeur = profondeur;
+    index1++;
 }
 
 void delSymbol (){
@@ -47,11 +47,11 @@ void print_symbol(){
     }
 }
 
-int get_index(char* name){
+int get_index(char* nomVar){
     int index1temp = 0;
     bool notfound = true;
     while (index1temp<index1 && notfound){
-        if (0 == strcmp(name, TableSymbol[index1temp].name)){
+        if (0 == strcmp(nomVar, TableSymbol[index1temp].name)){
             notfound = false;
         }
         index1temp++;
