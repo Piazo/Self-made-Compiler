@@ -4,7 +4,7 @@ typedef struct
 {
     char* name;
     char* type;
-    int index;
+    int index1;
     int profondeur;
 }Symbol;
 
