@@ -1,6 +1,5 @@
-AFC 
-AFC 
-AFC 
-SUP 
-JMF 
-PRI 
+AFC 0 1 -1
+AFC 1 5 -1
+AFC 2 -1 -1
+PRI 0 -1 -1
+PRI 1 -1 -1

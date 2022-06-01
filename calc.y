@@ -12,10 +12,10 @@ extern FILE * yyin;
 %}
 
 %union {int nb; char* var; char* type; char* str}
-%token tFL tEGAL tPO tPF tCONDEGAL tDIFF tSUP tINF tSUPEG tINFEG tAND tOR tSOU tADD tDIV tMUL tERROR tMAIN tCONST tINT tPRINT tOB tCB tEOI tVIRG
+%token tEGAL tPO tPF tSUP tINF tSOU tADD tDIV tMUL tMAIN tINT tPRINT tOB tCB tEOI tVIRG
 %token <nb> tNB tIF tELSE tWHILE
 %token <var> tID
-%type <nb> Element Condition Else
+%type <nb> Element Condition Else Operation MultDivi Terme
 
 %start Clio4
 %%
@@ -23,16 +23,18 @@ extern FILE * yyin;
 Clio4 : tMAIN tPO Parametres tPF Body
 	| tMAIN tPO tPF Body;	
 
-Body : tOB {incr_profondeur();} DeclaInstrs tCB {decrem_profondeur();};
-
-DeclaInstrs : DeclaInstr DeclaInstrs | ;
-
-DeclaInstr : Declarations | Instructions
-
 Parametres : Parametre
      	   	| Parametre tVIRG Parametres;
 
 Parametre : tINT tID {addSymbol($2);};
+
+Body : tOB {incr_profondeur();} DeclaInstrs tCB {decrem_profondeur();};
+
+DeclaInstrs : DeclaInstr DeclaInstrs 
+			| ;
+
+DeclaInstr : Declarations |
+			 Instructions;
 
 Declarations : Declaration Declarations
 				| ;
@@ -40,42 +42,44 @@ Declarations : Declaration Declarations
 Declaration : tINT IDs tEOI
 			| tINT tID tEGAL tNB tEOI {addSymbol($2); add_instruc_to_tab("AFC", get_index($2), $4, -1);};
 
-IDs : tID {addSymbol($1);}
-	| tID tVIRG tID {addSymbol($1);};
+IDs : tID {addSymbol($1); add_instruc_to_tab("AFC", get_index($1), -1, -1);}
+	| tID tVIRG IDs {addSymbol($1); add_instruc_to_tab("AFC", get_index($1), -1, -1);};
 
 Instructions : Instruction Instructions
 			| ;
 
-Instruction : Affectation;
-			| tIF tPO Condition tPF tOB {$1=add_instruc_to_tab("JMF", $3, -1, -1);} 
-				Body tCB Else {patchJMF($1, (($8)+1));}
-			| tWHILE tPO Condition tPF tOB {$1 = add_instruc_to_tab("JMF", $3, -1, -1)} Body 
-				tCB {int indexJMP = add_instruc_to_tab("JMP", $1, -1, -1); patchJMF($1, (indexJMP+1));}
+Instruction : Affectation
+			| tIF tPO Condition tPF {$1=add_instruc_to_tab("JMF", $3, -1, -1);} 
+				Body Else {patchJMF($1, (($7)+1));}
+			| tWHILE tPO Condition tPF {$1 = add_instruc_to_tab("JMF", $3, -1, 51);} Body 
+				{int indexJMP = add_instruc_to_tab("JMP", $1, -1, 51); patchJMF($1, (indexJMP+1));}
 			| tPRINT tPO Element tPF tEOI {add_instruc_to_tab("PRI", $3, -1, -1);};
 
-Else : tELSE {$$ = add_instruc_to_tab("JMP", -1, -1, -1);} tOB Body tCB {int indLastInstr = get_index_last_instr(); patchJMP($1, indLastInstr);} 
-		| ;
+Else : tELSE {$1 = add_instruc_to_tab("JMP", -1, -1, -1);} Body 
+				{int indLastInstr = get_index_last_instr(); patchJMP($1, indLastInstr); $$=$1;} 
+		| {$$=(get_index_last_instr()-1);};
 
-Element : tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1); pop_var_tempo();}
+
+Element : tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1); $$=Var_Tempo;}
 		| tID {$$ = get_index($1);};
 
-Condition : Element tEGAL tEGAL Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("EQU", Var_Tempo, $1, -1); pop_var_tempo();}
-			| Element tINF Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("INF", Var_Tempo, $1, -1); pop_var_tempo();}
-			| Element tSUP Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("SUP", Var_Tempo, $1, -1); pop_var_tempo();}
-			| Element {$$ = $1; push_var_tempo();};
+Condition : Element tEGAL tEGAL Element {int Var_Tempo=push_var_tempo(); add_instruc_to_tab("EQU", Var_Tempo, $1, $4); $$=Var_Tempo;}
+			| Element tINF Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("INF", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| Element tSUP Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("SUP", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| Element {$$ = $1;};
 
 Affectation : tID tEGAL Operation tEOI {add_instruc_to_tab("COP", get_index($1), pop_var_tempo(), -1);};
 
-Operation : Operation tADD MultDivi {add_ope_to_tab("ADD");}
-			| Operation tSOU MultDivi {add_ope_to_tab("SOU");}
-			| MultDivi;
+Operation : Operation tADD MultDivi {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("ADD", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| Operation tSOU MultDivi {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("SOU", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| MultDivi {$$=$1;};
 
-MultDivi : MultDivi tMUL Terme {add_ope_to_tab("MUL");}
-			| MultDivi tDIV Terme {add_ope_to_tab("DIV");}
-			| Terme;
+MultDivi : MultDivi tMUL Terme {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("MUL", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| MultDivi tDIV Terme {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("DIV", Var_Tempo, $1, $3); $$=Var_Tempo;}
+			| Terme {$$=$1;};
 
-Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tempo, get_index($1), -1);}
-		| tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1);};
+Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tempo, get_index($1), -1); $$=Var_Tempo;}
+		| tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1); $$=$1;};
 
 
 
@@ -83,7 +87,7 @@ Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tem
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(int argc, char** argv) {
 	printf("Projet Systeme Info\n");
-	yydebug=1;
+	//yydebug=1;
 	if(argc != 2) { 
 		fprintf(stderr, "Usage: %s <input file>\n", argv[0]); 
 		exit(1); 
@@ -95,8 +99,8 @@ int main(int argc, char** argv) {
 	} 
 	yyin = f; 
 	yyparse(); 
-	interpreter();
 	print_instruction_table();
+	interpreter();
 	fclose(f);
 	return 0;
 }

@@ -12,7 +12,7 @@ int tab_cond_if[16];
 int tab_cond_else[16];
 
 int index_last_instr_tab = 0;
-int index_current_instr = 0;
+int index_current_instr = -1;
 int index_var_tempo = -1;
 
 int profondeur_de_while = -1;
@@ -33,48 +33,29 @@ int get_index_last_instr (){
 }
 
 void patchJMF(int adrJMF, int newDestination){
-    tab_instruction[adrJMF].r1 = newDestination;
+    tab_instruction[adrJMF].r1 = newDestination+1;
 }
 
 void patchJMP(int adrJMP, int newDestination){
-    tab_instruction[adrJMP].r0 = newDestination;
+    tab_instruction[adrJMP].r0 = newDestination+1;
 }
 
 int push_var_tempo(){
     index_var_tempo++;
-    return 128+index_var_tempo;
+    return 666+index_var_tempo;
 }
 int pop_var_tempo(){
     index_var_tempo--;
-    return 128+index_var_tempo;
+    return 666+index_var_tempo;
 }
 
-
-void add_ope_to_tab(char* ope){
-    int OperandeDeGauche = pop_var_tempo();
-    int OperandeDeDroite = pop_var_tempo();
-    add_instruc_to_tab(ope, OperandeDeGauche, OperandeDeGauche, OperandeDeDroite);
-    index_var_tempo++;
-}
-
-void remove_jmp(){
-    index_last_instr_tab--;
-    for(int i=0; i <= index_last_instr_tab; i++){
-        if (strcmp(tab_instruction[i].operation, "JMF") == 0 && tab_instruction[i].r1 > index_last_instr_tab){
-            tab_instruction[i].r1--;
-        }
-        else if (strcmp(tab_instruction[i].operation, "JMP") == 0 && tab_instruction[i].r0 > index_last_instr_tab){
-            tab_instruction[i].r0--;
-        }
-    }
-}
 
 
 void print_instruction_table(){
     FILE* as;
     as = fopen("./Print_Instruction_Table", "w+");
     for (int i = 0; i < index_last_instr_tab; i++){
-        fprintf(as, "%s ", tab_instruction[i].operation);
+        fprintf(as, "%s %d %d %d", tab_instruction[i].operation, tab_instruction[i].r0, tab_instruction[i].r1, tab_instruction[i].r2);
         fprintf(as, "\n");
     }
 }
@@ -83,7 +64,8 @@ void print_instruction_table(){
 
 
 void interpreter(){
-    while(index_current_instr < index_last_instr_tab){
+    while(index_current_instr < index_last_instr_tab-1){
+        index_current_instr++;
         char operator[5];
         strcpy(operator, tab_instruction[index_current_instr].operation);
         int r0 = tab_instruction[index_current_instr].r0;
@@ -109,11 +91,20 @@ void interpreter(){
 			registre[r0] = r1;
 		}
         else if(!strcmp(operator, "JMP")) {
-            index_current_instr = tab_instruction[index_current_instr].r0;
+            if(tab_instruction[index_current_instr].r2 == 51){
+                index_current_instr = tab_instruction[index_current_instr].r0-1;
+            }else{
+               index_current_instr = tab_instruction[index_current_instr].r0-2;
+            }
+
         } 
         else if(!strcmp(operator, "JMF")) {
-            if(tab_instruction[index_current_instr].r0 == 0){
+            if(tab_instruction[index_current_instr].r2 == 51 && registre[r0] == 0){
                 index_current_instr = tab_instruction[index_current_instr].r1;
+            }else{
+                if(registre[r0] == 0){
+                    index_current_instr = tab_instruction[index_current_instr].r1-2;
+                }
             }
         } 
         else if(!strcmp(operator, "PRI")) {
@@ -128,7 +119,6 @@ void interpreter(){
         else if(!strcmp(operator, "SUP")) {
             registre[r0] = registre[r1] > registre[r2];
         } 
-        index_current_instr++;
     }
 } 
 

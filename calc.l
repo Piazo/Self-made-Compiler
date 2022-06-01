@@ -10,11 +10,12 @@
 
 [ \t\n]+	{};
 "main" { return tMAIN; }
-"const " { return tCONST; }
 "int " { return tINT; }
 "printf" {return tPRINT; }
 "if" { return tIF; }
-"else" { return tELSE; }
+"else" {
+	return tELSE; 
+	}
 "while" { return tWHILE; }
 
 [0-9]+	{
@@ -37,18 +38,11 @@
 "}" { return tCB; }
 ";"	{ return tEOI; }
 "," { return tVIRG; }
-"==" { return tCONDEGAL; }
-"!=" { return tDIFF; }
-"<=" { return tINFEG; }
-">=" { return tSUPEG; }
 ">" { return tSUP; }
 "<" { return tINF; }
-"&&" { return tAND; }
-"||" { return tOR; }
 
 [a-zA-Z][a-zA-Z_0-9]* {
 	  yylval.var = strdup(yytext);
 	  return tID;
 	}
-	
-.	{ return tERROR; }
+

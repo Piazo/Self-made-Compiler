@@ -1,8 +1,7 @@
 main(){
-    int b=1;
-    int a=2;
-    int c=5;
-    if(a>c){
-        printf(a);
-    }
+    int a = 1;
+    int b = 5;
+    int c;
+    printf(a);
+    printf(b);
 }

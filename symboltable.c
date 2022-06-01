@@ -5,13 +5,10 @@
 #include <string.h>
 
 
-
-
-#define TABLESIZE 128
+#define TABLESIZE 1024
 Symbol TableSymbol[TABLESIZE];
 
 int index1 = 0;
-int type_index1 = -1;
 int profondeur = 0;
 
 void incr_profondeur(){
@@ -19,25 +16,27 @@ void incr_profondeur(){
 }
 
 void decrem_profondeur(){
-    delSymbol();
+    profondeur--;
 }
 
 void addSymbol (char* NomSymbol){
-    char* name = (char*) malloc(strlen(NomSymbol));
-    strncpy(name, NomSymbol, strlen(NomSymbol));
-    TableSymbol[index1].name = name;
-    TableSymbol[index1].type = "int";
-    TableSymbol[index1].index1 = index1;
-    TableSymbol[index1].profondeur = profondeur;
-    index1++;
+    if (index1<666){
+        char* name = (char*) malloc(strlen(NomSymbol));
+        strncpy(name, NomSymbol, strlen(NomSymbol));
+        TableSymbol[index1].name = name;
+        TableSymbol[index1].type = "int";
+        TableSymbol[index1].index1 = index1;
+        TableSymbol[index1].profondeur = profondeur;
+        index1++;
+    }
 }
 
 void delSymbol (){
     int profdr = TableSymbol[index1].profondeur;
-    profondeur--;
     while(index1>1 && TableSymbol[index1].profondeur == profdr){
         index1--;
     }
+    profondeur--;
 }
 
 void print_symbol(){
@@ -49,16 +48,18 @@ void print_symbol(){
 
 int get_index(char* nomVar){
     int index1temp = 0;
+    int indexfound = 0;
     bool notfound = true;
-    while (index1temp<index1 && notfound){
+    while (index1temp<=index1 && notfound){
         if (0 == strcmp(nomVar, TableSymbol[index1temp].name)){
             notfound = false;
+            indexfound = index1temp;
         }
         index1temp++;
     }
     if (notfound) {
         return -1;
     } else {
-        return index1temp;
+        return indexfound;
     }
 }
