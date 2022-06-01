@@ -91,20 +91,11 @@ void interpreter(){
 			registre[r0] = r1;
 		}
         else if(!strcmp(operator, "JMP")) {
-            if(tab_instruction[index_current_instr].r2 == 51){
-                index_current_instr = tab_instruction[index_current_instr].r0-1;
-            }else{
-               index_current_instr = tab_instruction[index_current_instr].r0-2;
-            }
-
+            index_current_instr = tab_instruction[index_current_instr].r0-2;
         } 
         else if(!strcmp(operator, "JMF")) {
-            if(tab_instruction[index_current_instr].r2 == 51 && registre[r0] == 0){
-                index_current_instr = tab_instruction[index_current_instr].r1;
-            }else{
-                if(registre[r0] == 0){
+            if(registre[r0] == 0){
                     index_current_instr = tab_instruction[index_current_instr].r1-2;
-                }
             }
         } 
         else if(!strcmp(operator, "PRI")) {

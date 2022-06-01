@@ -1454,13 +1454,13 @@ yyreduce:
 
   case 24:
 #line 54 "calc.y"
-                                                   {(yyvsp[-3].nb) = add_instruc_to_tab("JMF", (yyvsp[-1].nb), -1, 51);}
+                                                   {(yyvsp[-3].nb) = add_instruc_to_tab("JMF", (yyvsp[-1].nb), -1, -1);}
 #line 1459 "y.tab.c"
     break;
 
   case 25:
 #line 55 "calc.y"
-                                {int indexJMP = add_instruc_to_tab("JMP", (yyvsp[-5].nb), -1, 51); patchJMF((yyvsp[-5].nb), (indexJMP+1));}
+                                {int indexJMP = add_instruc_to_tab("JMP", (yyvsp[-5].nb), -1, -1); patchJMF((yyvsp[-5].nb), (indexJMP+1));}
 #line 1465 "y.tab.c"
     break;
 
@@ -1526,7 +1526,7 @@ yyreduce:
 
   case 36:
 #line 71 "calc.y"
-                                       {add_instruc_to_tab("COP", get_index((yyvsp[-3].var)), pop_var_tempo(), -1);}
+                                       {add_instruc_to_tab("COP", get_index((yyvsp[-3].var)), (yyvsp[-1].nb), -1);}
 #line 1531 "y.tab.c"
     break;
 
@@ -1568,13 +1568,13 @@ yyreduce:
 
   case 43:
 #line 81 "calc.y"
-            {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tempo, get_index((yyvsp[0].var)), -1); (yyval.nb)=Var_Tempo;}
+            {(yyval.nb)=get_index((yyvsp[0].var));}
 #line 1573 "y.tab.c"
     break;
 
   case 44:
 #line 82 "calc.y"
-                      {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, (yyvsp[0].nb), -1); (yyval.nb)=(yyvsp[0].nb);}
+                      {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, (yyvsp[0].nb), -1); (yyval.nb)=Var_Tempo;}
 #line 1579 "y.tab.c"
     break;
 

@@ -51,8 +51,8 @@ Instructions : Instruction Instructions
 Instruction : Affectation
 			| tIF tPO Condition tPF {$1=add_instruc_to_tab("JMF", $3, -1, -1);} 
 				Body Else {patchJMF($1, (($7)+1));}
-			| tWHILE tPO Condition tPF {$1 = add_instruc_to_tab("JMF", $3, -1, 51);} Body 
-				{int indexJMP = add_instruc_to_tab("JMP", $1, -1, 51); patchJMF($1, (indexJMP+1));}
+			| tWHILE tPO Condition tPF {$1 = add_instruc_to_tab("JMF", $3, -1, -1);} Body 
+				{int indexJMP = add_instruc_to_tab("JMP", $1, -1, -1); patchJMF($1, (indexJMP+1));}
 			| tPRINT tPO Element tPF tEOI {add_instruc_to_tab("PRI", $3, -1, -1);};
 
 Else : tELSE {$1 = add_instruc_to_tab("JMP", -1, -1, -1);} Body 
@@ -68,7 +68,7 @@ Condition : Element tEGAL tEGAL Element {int Var_Tempo=push_var_tempo(); add_ins
 			| Element tSUP Element {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("SUP", Var_Tempo, $1, $3); $$=Var_Tempo;}
 			| Element {$$ = $1;};
 
-Affectation : tID tEGAL Operation tEOI {add_instruc_to_tab("COP", get_index($1), pop_var_tempo(), -1);};
+Affectation : tID tEGAL Operation tEOI {add_instruc_to_tab("COP", get_index($1), $3, -1);};
 
 Operation : Operation tADD MultDivi {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("ADD", Var_Tempo, $1, $3); $$=Var_Tempo;}
 			| Operation tSOU MultDivi {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("SOU", Var_Tempo, $1, $3); $$=Var_Tempo;}
@@ -78,8 +78,8 @@ MultDivi : MultDivi tMUL Terme {int Var_Tempo = push_var_tempo(); add_instruc_to
 			| MultDivi tDIV Terme {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("DIV", Var_Tempo, $1, $3); $$=Var_Tempo;}
 			| Terme {$$=$1;};
 
-Terme : tID {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("COP", Var_Tempo, get_index($1), -1); $$=Var_Tempo;}
-		| tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1); $$=$1;};
+Terme : tID {$$=get_index($1);}
+		| tNB {int Var_Tempo = push_var_tempo(); add_instruc_to_tab("AFC", Var_Tempo, $1, -1); $$=Var_Tempo;};
 
 
 
