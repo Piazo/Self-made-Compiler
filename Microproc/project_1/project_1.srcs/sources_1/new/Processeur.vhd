@@ -53,6 +53,7 @@ signal RST_Proc : STD_LOGIC := '1';
 signal QA_out : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 signal QB_out : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 signal Out_MemDo : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
+signal Adr_in : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
 
 signal N_Out: STD_LOGIC := '0';
 signal O_Out: STD_LOGIC := '0';
@@ -113,7 +114,7 @@ signal B_EX_Mem : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
                 RW : in STD_LOGIC;
                 RST : in STD_LOGIC;
                 CLK : in STD_LOGIC;
-                Vect_OUT_Data : out STD_LOGIC_VECTOR(7 downto 0));
+                Vect_OUT : out STD_LOGIC_VECTOR(7 downto 0));
     end component;
     
 --signaux pour la pipeline Mem/RE
@@ -155,7 +156,7 @@ Mem_Donnees : MemDonneesInstructionComplete PORT MAP(
     Adr => Adr_in,
     Vect_IN => B_EX_MEM,
     RW => LC_Mem,
-    RST => RST,
+    RST => RST_Proc,
     CLK => CLK,
     Vect_OUT => Out_MemDo);
 
@@ -186,23 +187,31 @@ C_LI_DI <= FullInstruct(7 downto 0);
 
 --Pipeline DI/EX
 A_DI_EX <= A_LI_DI;
-if (OP_LI_DI = X"06") then
-    B_DI_EX <= B_LI_DI; --cas ou on ne passe pas dans le multiplexeur (AFC)
+if (OP_LI_DI = X"06" or OP_LI_DI = X"07") then
+    B_DI_EX <= B_LI_DI; --cas ou on ne passe pas dans le multiplexeur (AFC et LOAD)
 else
     B_DI_EX <= QA_Out;
 end if;
-C_DI_EX <= C_LI_DI;
+C_DI_EX <= QB_Out;
 OP_DI_EX <= OP_LI_DI;
 
-
+LC_UAL <= OP_DI_EX;
+    
 
 --Pipeline EX/Mem
 A_EX_Mem <= A_DI_EX;
-if (OP_LI_DI = X"06" or OP_LI_DI = X"05") then
-    B_EX_Mem <= B_DI_EX; --cas ou on ne passe pas dans le multiplexeur (AFC, COP)
+if (OP_LI_DI = X"06" or OP_LI_DI = X"05" or OP_LI_DI = X"07" or OP_LI_DI = X"08") then
+    B_EX_Mem <= B_DI_EX; --cas ou on ne passe pas dans le multiplexeur (AFC, COP, LOAD, STORE)
+else
+    B_EX_Mem <= S_OUT;
 end if;
 OP_EX_Mem <= OP_DI_EX;
 
+if (OP_EX_Mem = X"08") then
+    LC_Mem <= '0';
+else
+    LC_Mem <= '1';
+end if;
 
 
 --Pipeline Mem/RE
